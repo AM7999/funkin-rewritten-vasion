@@ -32,7 +32,6 @@ function love.load()
 	Gamestate = require "lib.gamestate"
 	Timer = require "lib.timer"
 	lume = require "lib.lume"
-	flux = require "lib.flux"
 
 	-- Load modules
 	status = require "modules.status"
