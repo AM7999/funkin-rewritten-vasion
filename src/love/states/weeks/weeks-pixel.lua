@@ -755,7 +755,12 @@ return {
 
 									voices:setVolume(1)
 
-									if notePos <= 7 then -- "Sick"
+									if notePos <= 2 then -- "Sick"
+										score = score + 350
+										ratingAnim = "sickPlus"
+										hitSick = true
+										altScore = altScore + 100
+									elseif notePos <= 6 then -- "Sick"
 										score = score + 350
 										ratingAnim = "sick"
 										hitSick = true

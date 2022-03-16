@@ -768,6 +768,10 @@ return {
 					end
 				end
 			end
+
+			if settings.botPlay then
+				hitSick = true
+			end
 			
 			absMusicTime = math.abs(musicTime)
 			musicThres = math.floor(absMusicTime / 100) -- Since "musicTime" isn't precise, this is needed
@@ -951,19 +955,25 @@ return {
 
 										voices:setVolume(1)
 
-										if notePos <= 35 then -- "Sick"
+										if notePos <= 18 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
+											score = score + 350
+											ratingAnim = "sickPlus"
+											altScore = altScore + 100.00
+											sicks = sicks + 1
+											hitSick = true
+										elseif notePos <= 38 then -- "Sick"
 											score = score + 350
 											ratingAnim = "sick"
 											altScore = altScore + 100.00
 											sicks = sicks + 1
 											hitSick = true
-										elseif notePos <= 75 then -- "Good"
+										elseif notePos <= 78 then -- "Good"
 											score = score + 200
 											ratingAnim = "good"
 											altScore = altScore + 66.66
 											goods = goods + 1
 											hitSick = false
-										elseif notePos <= 95 then -- "Bad"
+										elseif notePos <= 98 then -- "Bad"
 											score = score + 100
 											ratingAnim = "bad"
 											altScore = altScore + 33.33
@@ -1144,7 +1154,7 @@ return {
 				graphics.setColor(1, 1, 1)
 				boyfriendArrows[i]:draw()
 				if hitSick then
-					if not botPlay then
+					if not settings.botPlay and not pixel then
 						if input:pressed("gameLeft") then
 							leftArrowSplash:animate("left")
 						elseif input:pressed("gameRight") then
@@ -1156,26 +1166,56 @@ return {
 						end
 					else
 						if boyfriendArrows[1]:getAnimName() == "confirm" then
-							leftArrowSplash:animate("left")
+							if wasReleased1 then
+								leftArrowSplash:animate("left")
+								wasReleased1 = false
+							end
 						end
 						if boyfriendArrows[2]:getAnimName() == "confirm" then
-							downArrowSplash:animate("down")
+							if wasReleased2 then
+								downArrowSplash:animate("down")
+								wasReleased2 = false
+							end
 						end
 						if boyfriendArrows[3]:getAnimName() == "confirm" then
-							upArrowSplash:animate("up")
+							if wasReleased3 then
+								upArrowSplash:animate("up")
+								wasReleased3 = false
+							end
 						end
 						if boyfriendArrows[4]:getAnimName() == "confirm" then
-							downArrowSplash:animate("down")
+							if wasReleased4 then
+								rightArrowSplash:animate("right")
+								wasReleased4 = false
+							end
 						end
 					end
 				end
+				if settings.botPlay and not pixel then
+					if boyfriendArrows[1]:getAnimName() ~= "confirm" then
+						wasReleased1 = true
+					end
+					if boyfriendArrows[2]:getAnimName() ~= "confirm" then
+						wasReleased2 = true
+					end
+					if boyfriendArrows[3]:getAnimName() ~= "confirm" then
+						wasReleased3 = true
+					end
+					if boyfriendArrows[4]:getAnimName() ~= "confirm" then
+						wasReleased4 = true
+					end
+				end
+
 				if leftArrowSplash:isAnimated() then
 					leftArrowSplash:draw()
-				elseif rightArrowSplash:isAnimated() then
+				end
+				if rightArrowSplash:isAnimated() then
 					rightArrowSplash:draw()
-				elseif upArrowSplash:isAnimated() then
+				end
+				if upArrowSplash:isAnimated() then
 					upArrowSplash:draw()
-				elseif downArrowSplash:isAnimated() then
+				end
+				if downArrowSplash:isAnimated() then
 					downArrowSplash:draw()
 				end
 				
