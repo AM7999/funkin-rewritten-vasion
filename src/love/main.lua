@@ -67,6 +67,7 @@ function love.load()
 	healthBarColorEnemy = {165,0,77} -- GF's icon colour
 
 	useOriginalPixel = true -- Set this to false to use FNFR's pixel engine
+	--                         But please keep in mind. This will not longer be updated.
 
 	-- Load week data
 	if useOriginalPixel then
