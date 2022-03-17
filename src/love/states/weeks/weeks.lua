@@ -203,12 +203,25 @@ return {
 		downArrowSplash.sizeX, downArrowSplash.sizeY = 7, 7
 
 		for i = 1, 4 do
-			enemyArrows[i].x = -925 + 165 * i 
-			boyfriendArrows[i].x = 100 + 165 * i 
-			leftArrowSplash.x = 100 + 165 * 1 - 15
-			downArrowSplash.x = 100 + 165 * 2 - 15
-			upArrowSplash.x =  100 + 165 * 3 - 15
-			rightArrowSplash.x = 100 + 165 * 4 - 15
+			if not settings.middleScroll then
+				enemyArrows[i].x = -925 + 165 * i 
+				boyfriendArrows[i].x = 100 + 165 * i 
+				leftArrowSplash.x = 100 + 165 * 1 - 15
+				downArrowSplash.x = 100 + 165 * 2 - 15
+				upArrowSplash.x =  100 + 165 * 3 - 15
+				rightArrowSplash.x = 100 + 165 * 4 - 15
+			else
+				boyfriendArrows[i].x = -410 + 165 * i
+				-- ew stuff
+				enemyArrows[1].x = -925 + 165 * 1 
+				enemyArrows[2].x = -925 + 165 * 2
+				enemyArrows[3].x = 100 + 165 * 3
+				enemyArrows[4].x = 100 + 165 * 4
+				leftArrowSplash.x = -440 + 165 * 1 - 15
+				downArrowSplash.x = -440 + 165 * 2 - 15
+				upArrowSplash.x =  -440 + 165 * 3 - 15
+				rightArrowSplash.x = -440 + 165 * 4 - 15
+			end
 			if settings.downscroll then
 				enemyArrows[i].y = 400
 				boyfriendArrows[i].y = 400
@@ -272,12 +285,25 @@ return {
 		}
 
 		for i = 1, 4 do
-			enemyArrows[i].x = -925 + 165 * i 
-			boyfriendArrows[i].x = 100 + 165 * i 
-			leftArrowSplash.x = 100 + 165 * 1 - 15
-			downArrowSplash.x = 100 + 165 * 2 - 15
-			upArrowSplash.x =  100 + 165 * 3 - 15
-			rightArrowSplash.x = 100 + 165 * 4 - 15
+			if not settings.middleScroll then
+				enemyArrows[i].x = -925 + 165 * i 
+				boyfriendArrows[i].x = 100 + 165 * i 
+				leftArrowSplash.x = 100 + 165 * 1 - 15
+				downArrowSplash.x = 100 + 165 * 2 - 15
+				upArrowSplash.x =  100 + 165 * 3 - 15
+				rightArrowSplash.x = 100 + 165 * 4 - 15
+			else
+				boyfriendArrows[i].x = -410 + 165 * i
+				-- ew stuff
+				enemyArrows[1].x = -925 + 165 * 1 
+				enemyArrows[2].x = -925 + 165 * 2
+				enemyArrows[3].x = 100 + 165 * 3
+				enemyArrows[4].x = 100 + 165 * 4
+				leftArrowSplash.x = -440 + 165 * 1 - 15
+				downArrowSplash.x = -440 + 165 * 2 - 15
+				upArrowSplash.x =  -440 + 165 * 3 - 15
+				rightArrowSplash.x = -440 + 165 * 4 - 15
+			end
 			if settings.downscroll then
 				enemyArrows[i].y = 400
 				boyfriendArrows[i].y = 400
@@ -352,6 +378,9 @@ return {
 							enemyNotes[id][c].y = 400 - noteTime * 0.6 * speed
 
 							enemyNotes[id][c]:animate("on", false)
+							if pixel then
+								enemyNotes[id][c].sizeX, enemyNotes[id][c].sizeY = 7, 7
+							end
 
 							if chart[i].sectionNotes[j].noteLength > 0 then
 								local c
@@ -362,17 +391,21 @@ return {
 									table.insert(enemyNotes[id], sprite())
 									enemyNotes[id][c].x = x
 									enemyNotes[id][c].y = 400 - (noteTime + k) * 0.6 * speed
+									if pixel then
+										enemyNotes[id][c].sizeX, enemyNotes[id][c].sizeY = 7, 7
+									end
 
 									enemyNotes[id][c]:animate("hold", false)
 								end
 
 								c = #enemyNotes[id]
 								if pixel then
-									enemyNotes[id][c].offsetY = -1
+									enemyNotes[id][c].offsetY = 2
+									enemyNotes[id][c].sizeX, enemyNotes[id][c].sizeY = 7, -7
 								else
-									enemyNotes[id][c].offsetY = -10
+									enemyNotes[id][c].offsetY = 20
+									enemyNotes[id][c].sizeY = -1
 								end
-								enemyNotes[id][c].sizeY = -1
 
 								enemyNotes[id][c]:animate("end", false)
 							end
@@ -386,6 +419,9 @@ return {
 							boyfriendNotes[id][c].y = 400 - noteTime * 0.6 * speed
 
 							boyfriendNotes[id][c]:animate("on", false)
+							if pixel then
+								boyfriendNotes[id][c].sizeX, boyfriendNotes[id][c].sizeY = 7, 7
+							end
 
 							if chart[i].sectionNotes[j].noteLength > 0 then
 								local c
@@ -396,6 +432,9 @@ return {
 									table.insert(boyfriendNotes[id], sprite())
 									boyfriendNotes[id][c].x = x
 									boyfriendNotes[id][c].y = 400 - (noteTime + k) * 0.6 * speed
+									if pixel then
+										boyfriendNotes[id][c].sizeX, boyfriendNotes[id][c].sizeY = 7, 7
+									end
 
 									boyfriendNotes[id][c]:animate("hold", false)
 								end
@@ -403,11 +442,12 @@ return {
 								c = #boyfriendNotes[id]
 
 								if pixel then
-									boyfriendNotes[id][c].offsetY = -1
+									boyfriendNotes[id][c].offsetY = 2
+									boyfriendNotes[id][c].sizeX, boyfriendNotes[id][c].sizeY = 7, -7
 								else
-									boyfriendNotes[id][c].offsetY = -10
+									boyfriendNotes[id][c].offsetY = 20
+									boyfriendNotes[id][c].sizeY = -1
 								end
-								boyfriendNotes[id][c].sizeY = -1
 
 								boyfriendNotes[id][c]:animate("end", false)
 							end
@@ -423,6 +463,9 @@ return {
 							boyfriendNotes[id][c].y = 400 - noteTime * 0.6 * speed
 
 							boyfriendNotes[id][c]:animate("on", false)
+							if pixel then
+								boyfriendNotes[id][c].sizeX, boyfriendNotes[id][c].sizeY = 7, 7
+							end
 
 							if chart[i].sectionNotes[j].noteLength > 0 then
 								local c
@@ -433,6 +476,9 @@ return {
 									table.insert(boyfriendNotes[id], sprite())
 									boyfriendNotes[id][c].x = x
 									boyfriendNotes[id][c].y = 400 - (noteTime + k) * 0.6 * speed
+									if pixel then
+										boyfriendNotes[id][c].sizeX, boyfriendNotes[id][c].sizeY = 7, 7
+									end
 
 									boyfriendNotes[id][c]:animate("hold", false)
 								end
@@ -440,11 +486,12 @@ return {
 								c = #boyfriendNotes[id]
 
 								if pixel then
-									boyfriendNotes[id][c].offsetY = -1
+									boyfriendNotes[id][c].offsetY = 2
+									boyfriendNotes[id][c].sizeX, boyfriendNotes[id][c].sizeY = 7, -7
 								else
-									boyfriendNotes[id][c].offsetY = -10
+									boyfriendNotes[id][c].offsetY = 20
+									boyfriendNotes[id][c].sizeY = -1
 								end
-								boyfriendNotes[id][c].sizeY = -1
 
 								boyfriendNotes[id][c]:animate("end", false)
 							end
@@ -458,6 +505,9 @@ return {
 							enemyNotes[id][c].y = 400 - noteTime * 0.6 * speed
 
 							enemyNotes[id][c]:animate("on", false)
+							if pixel then
+								enemyNotes[id][c].sizeX, enemyNotes[id][c].sizeY = 7, 7
+							end
 
 							if chart[i].sectionNotes[j].noteLength > 0 then
 								local c
@@ -468,6 +518,9 @@ return {
 									table.insert(enemyNotes[id], sprite())
 									enemyNotes[id][c].x = x
 									enemyNotes[id][c].y = 400 - (noteTime + k) * 0.6 * speed
+									if pixel then
+										enemyNotes[id][c].sizeX, enemyNotes[id][c].sizeY = 7, 7
+									end
 
 									enemyNotes[id][c]:animate("hold", false)
 								end
@@ -475,11 +528,12 @@ return {
 								c = #enemyNotes[id]
 
 								if pixel then
-									enemyNotes[id][c].offsetY = -1
+									enemyNotes[id][c].offsetY = 2
+									enemyNotes[id][c].sizeX, enemyNotes[id][c].sizeY = 7, -7
 								else
-									enemyNotes[id][c].offsetY = -10
+									enemyNotes[id][c].offsetY = 20
+									enemyNotes[id][c].sizeY = -1
 								end
-								enemyNotes[id][c].sizeY = -1
 
 								enemyNotes[id][c]:animate("end", false)
 							end
@@ -514,9 +568,9 @@ return {
 								c = #enemyNotes[id]
 
 								if pixel then
-									enemyNotes[id][c].offsetY = -1
+									enemyNotes[id][c].offsetY = 2
 								else
-									enemyNotes[id][c].offsetY = -10
+									enemyNotes[id][c].offsetY = 20
 								end
 
 								enemyNotes[id][c]:animate("end", false)
@@ -548,9 +602,9 @@ return {
 								c = #boyfriendNotes[id]
 
 								if pixel then
-									boyfriendNotes[id][c].offsetY = -1
+									boyfriendNotes[id][c].offsetY = 2
 								else
-									boyfriendNotes[id][c].offsetY = -10
+									boyfriendNotes[id][c].offsetY = 20
 								end
 
 								boyfriendNotes[id][c]:animate("end", false)
@@ -584,9 +638,9 @@ return {
 								c = #boyfriendNotes[id]
 
 								if pixel then
-									boyfriendNotes[id][c].offsetY = -1
+									boyfriendNotes[id][c].offsetY = 2
 								else
-									boyfriendNotes[id][c].offsetY = -10
+									boyfriendNotes[id][c].offsetY = 20
 								end
 
 								boyfriendNotes[id][c]:animate("end", false)
@@ -613,9 +667,9 @@ return {
 									enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
 									if k > chart[i].sectionNotes[j].noteLength - 71 / speed then
 										if pixel then
-											enemyNotes[id][c].offsetY = -1
+											enemyNotes[id][c].offsetY = 2
 										else
-											enemyNotes[id][c].offsetY = -10
+											enemyNotes[id][c].offsetY = 20
 										end
 
 										enemyNotes[id][c]:animate("end", false)
@@ -627,9 +681,9 @@ return {
 								c = #enemyNotes[id]
 
 								if pixel then
-									enemyNotes[id][c].offsetY = -1
+									enemyNotes[id][c].offsetY = 2
 								else
-									enemyNotes[id][c].offsetY = -10
+									enemyNotes[id][c].offsetY = 20
 								end
 
 								enemyNotes[id][c]:animate("end", false)
@@ -1150,6 +1204,9 @@ return {
 				if enemyArrows[i]:getAnimName() == "off" then
 					graphics.setColor(0.6, 0.6, 0.6)
 				end
+				if settings.middleScroll then
+					love.graphics.setColor(1,1,1,0.3)
+				end
 				enemyArrows[i]:draw()
 				graphics.setColor(1, 1, 1)
 				boyfriendArrows[i]:draw()
@@ -1230,8 +1287,8 @@ return {
 							if animName == "hold" or animName == "end" then
 								graphics.setColor(1, 1, 1, 0.5)
 							end
-							if pixel then
-								enemyNotes[i][j].sizeX, enemyNotes[i][j].sizeY = 7, 7
+							if settings.middleScroll then
+								graphics.setColor(1, 1, 1, 0.5)
 							end
 							enemyNotes[i][j]:draw()
 							graphics.setColor(1, 1, 1)
@@ -1253,9 +1310,6 @@ return {
 								else
 									graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
 								end
-							end
-							if pixel then
-								boyfriendNotes[i][j].sizeX, boyfriendNotes[i][j].sizeY = 7, 7
 							end
 							boyfriendNotes[i][j]:draw()
 						end

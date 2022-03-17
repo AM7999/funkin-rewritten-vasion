@@ -36,6 +36,9 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
     "Downscroll:" ..
     "\n      \"Downscroll\" makes arrows scroll down instead of up, and also\n      moves some aspects of the UI around",
 
+    "Middlescroll:" ..
+    "\n      \"Middlescroll\" Puts your notes in the middle",
+
     "Ghost Tapping:" ..
     "\n       \"Ghost Tapping\" disables anti-spam, but counts \"Shit\" inputs as\n       misses" ..
     "\n\n       NOTE: Currently unfinished, some aspects of this input mode\n       still need to be implemented, like mash violations",
@@ -117,10 +120,12 @@ return {
                                     showDebug = settings.showDebug,
                                     setImageType = imageTyppe,
                                     sideJudgements = settings.sideJudgements,
-                                    botPlay = settings.botPlay
+                                    botPlay = settings.botPlay,
+                                    middleScroll = settings.middleScroll,
+                                    settingsVer = settingsVer
                                 }
                                 serialized = lume.serialize(data)
-                                love.filesystem.write("settings.data", serialized)
+                                love.filesystem.write("settings", serialized)
                                 love.window.showMessageBox("Settings Saved!", "Settings saved. Funkin Vasion will now restart to make sure your settings saved")
                                 love.event.quit("restart")
                             else
@@ -137,10 +142,12 @@ return {
                                     showDebug = settings.showDebug,
                                     setImageType = imageTyppe,
                                     sideJudgements = settings.sideJudgements,
-                                    botPlay = settings.botPlay
+                                    botPlay = settings.botPlay,
+                                    middleScroll = settings.middleScroll,
+                                    settingsVer = settingsVer
                                 }
                                 serialized = lume.serialize(data)
-                                love.filesystem.write("settings.data", serialized)
+                                love.filesystem.write("settings", serialized)
                                 Gamestate.switch(menuSelect)
                             end
                         end
@@ -152,18 +159,24 @@ return {
                                 settings.downscroll = true
                             end
                         elseif settingSelect == 2 then
+                            if settings.middleScroll then
+                                settings.middleScroll = false
+                            else
+                                settings.middleScroll = true
+                            end
+                        elseif settingSelect == 3 then
                             if settings.ghostTapping then
                                 settings.ghostTapping = false
                             else
                                 settings.ghostTapping = true
                             end
-                        elseif settingSelect == 3 then
+                        elseif settingSelect == 4 then
                             if not settings.sideJudgements then
                                 settings.sideJudgements = true
                             else
                                 settings.sideJudgements = false
                             end
-                        elseif settingSelect == 4 then
+                        elseif settingSelect == 5 then
                             if not settings.botPlay then
                                 settings.botPlay = true
                             else
@@ -211,7 +224,7 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 4
+                        settingSelect = 5
                     end
                 elseif settingsMenuState == 2 then
                     if settingSelect ~= 1 then
@@ -228,7 +241,7 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 1 then
-                    if settingSelect ~= 4 then
+                    if settingSelect ~= 5 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
@@ -267,9 +280,10 @@ return {
                     end
                 elseif settingsMenuState == 1 then
                     love.graphics.print("Downscroll = " .. tostring(settings.downscroll), -628, -100)
-                    love.graphics.print("\n\nGhost Tapping = " .. tostring(settings.ghostTapping), -628, -100)
-                    love.graphics.print("\n\n\n\nSide Judgements = " .. tostring(settings.sideJudgements), -628, -100)
-                    love.graphics.print("\n\n\n\n\n\nBot Play = " .. tostring(settings.botPlay), -628, -100)
+                    love.graphics.print("\n\nMiddlescroll = " .. tostring(settings.middleScroll), -628, -100)
+                    love.graphics.print("\n\n\n\nGhost Tapping = " .. tostring(settings.ghostTapping), -628, -100)
+                    love.graphics.print("\n\n\n\n\n\nSide Judgements = " .. tostring(settings.sideJudgements), -628, -100)
+                    love.graphics.print("\n\n\n\n\n\n\n\nBot Play = " .. tostring(settings.botPlay), -628, -100)
                 elseif settingsMenuState == 2 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -100) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -100)

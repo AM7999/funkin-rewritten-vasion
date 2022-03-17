@@ -61,10 +61,10 @@ If using a controller on a PC, a controller with an Xbox button layout is recomm
 
 # Settings
 The settings file can be found in the following places on the following systems:
-* Windows - `%APPDATA%\funkin-vasion-rewritten\settings.ini` & `%APPDATA%\funkin-vasion-rewrittenn\settings.data`
-* macOS - `~/Library/Application Support/funkin-vasion-rewritten/settings.ini` & `~/Library/Application Support/funkin-vasion-rewritten/settings.data`
-* Linux - `~/.local/share/love/funkin-vasion-rewritten/settings.ini` & `~/.local/share/love/funkin-vasion-rewritten/settings.data`
-* Nintendo Switch - `./funkin-vasion-rewritten/settings.ini` & `./funkin-vasion-rewritten/settings.data`
+* Windows - `%APPDATA%\funkin-vasion-rewritten\settings.ini` & `%APPDATA%\funkin-vasion-rewrittenn\settings`
+* macOS - `~/Library/Application Support/funkin-vasion-rewritten/settings.ini` & `~/Library/Application Support/funkin-vasion-rewritten/settings`
+* Linux - `~/.local/share/love/funkin-vasion-rewritten/settings.ini` & `~/.local/share/love/funkin-vasion-rewritten/settings`
+* Nintendo Switch - `./funkin-vasion-rewritten/settings.ini` & `./funkin-vasion-rewritten/settings`
 
 # Progress
 **Menus** - 90% Complete

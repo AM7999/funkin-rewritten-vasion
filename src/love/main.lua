@@ -92,9 +92,14 @@ function love.load()
 		}
 	end
 
+	if love.filesystem.getInfo("settings.data") then
+		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
+		love.filesystem.remove("settings.data")
+	end
+
 	-- You don't need to mess with this unless you are adding a custom setting (Will nil be default (AKA. False)) --
-	if love.filesystem.getInfo("settings.data") then 
-		file = love.filesystem.read("settings.data")
+	if love.filesystem.getInfo("settings") then 
+		file = love.filesystem.read("settings")
         data = lume.deserialize(file)
 		settings.hardwareCompression = data.saveSettingsMoment.hardwareCompression
 		settings.downscroll = data.saveSettingsMoment.downscroll
@@ -103,6 +108,9 @@ function love.load()
 		graphics.setImageType(data.saveSettingsMoment.setImageType)
 		settings.sideJudgements = data.saveSettingsMoment.sideJudgements
 		settings.botPlay = data.saveSettingsMoment.botPlay
+		settings.middleScroll = data.saveSettingsMoment.middleScroll
+
+		settingsVer = data.saveSettingsMoment.settingsVer
 
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -111,11 +119,14 @@ function love.load()
 			showDebug = settings.showDebug,
 			setImageType = "dds",
 			sideJudgements = settings.sideJudgements,
-			botPlay = settings.botPlay
+			botPlay = settings.botPlay,
+			middleScroll = settings.middleScroll,
+			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
-		love.filesystem.write("settings.data", serialized)
-	else
+		love.filesystem.write("settings", serialized)
+	end
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 1 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -123,6 +134,7 @@ function love.load()
 		settings.showDebug = false
 		settings.sideJudgements = false
 		settings.botPlay = false
+		settingsVer = 1
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -131,15 +143,14 @@ function love.load()
 			showDebug = settings.showDebug,
 			setImageType = "dds",
 			sideJudgements = settings.sideJudgements,
-			botPlay = settings.botPlay
+			botPlay = settings.botPlay,
+			middleScroll = settings.middleScroll,
+			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
-		love.filesystem.write("settings.data", serialized)
-		love.window.showMessageBox("SETTING UPDATE!", "Due to FNFR Vasions update. Keybinds/Video modes can be created in settings.ini and settings can now be changed via the settings menu")
-	
-		love.filesystem.write("settings.data", serialized)
+		love.filesystem.write("settings", serialized)
 	end
-	--                                                                      --
+	-----------------------------------------------------------------------------------------
 
 	-- LÖVE init
 	if curOS == "OS X" then
