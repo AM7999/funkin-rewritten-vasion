@@ -29,7 +29,7 @@ love.graphics.color.print("text",x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
 This is for automatically recolouring text. Works exactly like love.graphics.print(). RGBA values come after sx and sy (sizeX and sizeY)
 
 ```lua
-love.graphics.printf("text",x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
+love.graphics.color.printf("text",x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
 ```
 > Alpha channl does not use 255
 This is for automatically recolouring text. Works exactly like love.graphics.printf(). RGBA values come after sx and sy (sizeX and sizeY)
