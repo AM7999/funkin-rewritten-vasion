@@ -985,9 +985,9 @@ return {
 			end
 
 			if settings.downscroll then
-				graphics.setColor(healthBarColorEnemy[1]/255, healthBarColorEnemy[2]/255, healthBarColorEnemy[3]/255)
+				graphics.setColor(healthBarColorEnemy[1], healthBarColorEnemy[2], healthBarColorEnemy[3])
 				love.graphics.rectangle("fill", -60, -55, 120, 5)
-				graphics.setColor(healthBarColorPlayer[1]/255, healthBarColorPlayer[2]/255, healthBarColorPlayer[3]/255) -- add /255 after each one if you use 255 RGB values
+				graphics.setColor(healthBarColorPlayer[1], healthBarColorPlayer[2], healthBarColorPlayer[3]) 
 				love.graphics.rectangle("fill", 60, -55, math.floor(-health * 1.2), 5)
 				graphics.setColor(0, 0, 0)
 				love.graphics.setLineWidth(2)
@@ -995,9 +995,9 @@ return {
 				love.graphics.setLineWidth(1)
 				graphics.setColor(1, 1, 1)
 			else
-				graphics.setColor(healthBarColorEnemy[1]/255, healthBarColorEnemy[2]/255, healthBarColorEnemy[3]/255)
+				graphics.setColor(healthBarColorEnemy[1], healthBarColorEnemy[2], healthBarColorEnemy[3])
 				love.graphics.rectangle("fill", -60, 45, 120, 5)
-				graphics.setColor(healthBarColorPlayer[1]/255, healthBarColorPlayer[2]/255, healthBarColorPlayer[3]/255) -- add /255 after each one if you use 255 RGB values
+				graphics.setColor(healthBarColorPlayer[1], healthBarColorPlayer[2], healthBarColorPlayer[3])
 				love.graphics.rectangle("fill", 60, 45, math.floor(-health * 1.2), 5)
 				graphics.setColor(0, 0, 0)
 				love.graphics.setLineWidth(2)

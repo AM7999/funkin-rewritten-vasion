@@ -21,9 +21,14 @@ if love.system.getOS() == "Windows" and love.filesystem.isFused() then -- Delete
 	discordRPC = require "lib.discordRPC"
 	appId = require "lib.applicationID"
 end
+love.graphics.color = {}
+color = {}
 
 function love.load()
 	local curOS = love.system.getOS()
+
+	local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
+	local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
 	-- Load libraries
 	baton = require "lib.baton"
@@ -68,6 +73,15 @@ function love.load()
 
 	useOriginalPixel = true -- Set this to false to use FNFR's pixel engine
 	--                         But please keep in mind. This will not longer be updated.
+
+	function setDialogue(strList)
+		dialogueList = strList
+		curDialogue = 1
+		timer = 0
+		progress = 1
+		output = ""
+		isDone = false
+	end
 
 	-- Load week data
 	if useOriginalPixel then
@@ -200,6 +214,21 @@ function love.load()
 		Gamestate.switch(menu)
 	end
 end
+function love.graphics.setColorF(R,G,B,A)
+	R, G, B = R/255, G/255, B/255 -- convert 255 values to work with the setColor
+	love.graphics.setColor(R,G,B,A) -- Alpha is not converted because using 255 alpha can be strange (I much rather 0-1 values lol)
+end
+function love.graphics.color.print(text,x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
+    love.graphics.setColorF(R,G,B,A)
+    love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky) -- When I learn the code for remaking love.graphics.print() I will update it (Although this works too)
+    love.graphics.setColorF(255,255,255,1)
+end
+
+function love.graphics.color.printf(text,x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
+    love.graphics.setColorF(R,G,B,A)
+    love.graphics.printf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky) -- Part 2
+    love.graphics.setColorF(255,255,255,1)
+end
 if useDiscordRPC then
 	function discordRPC.ready(userId, username, discriminator, avatar)
 		print(string.format("Discord: ready (%s, %s, %s, %s)", userId, username, discriminator, avatar))
@@ -225,6 +254,21 @@ function love.keypressed(key)
 		love.graphics.captureScreenshot("screenshots/" .. os.time() .. ".png")
 	elseif key == "7" then
 		Gamestate.switch(debugMenu)
+	elseif key == "0" then
+		if love.audio.getVolume() == 0 then
+			love.audio.setVolume(lastAudioVolume)
+		else
+			lastAudioVolume = love.audio.getVolume()
+			love.audio.setVolume(0)
+		end
+	elseif key == "-" then
+		if love.audio.getVolume() >= 0 then
+			love.audio.setVolume(love.audio.getVolume() - 0.1)
+		end
+	elseif key == "=" then
+		if love.audio.getVolume() <= 1 then
+			love.audio.setVolume(love.audio.getVolume() + 0.1)
+		end
 	else
 		Gamestate.keypressed(key)
 	end

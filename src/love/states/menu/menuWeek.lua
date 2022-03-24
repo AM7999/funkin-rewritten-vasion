@@ -322,11 +322,10 @@ return {
 				end
 
 				love.graphics.printf(weekDesc[weekNum], -585, -395, 853, "right", nil, 1.5, 1.5)
-				graphics.setColor(255 / 255, 117 / 255, 172 / 255)
 				if weekNum ~= 1 then
-					love.graphics.printf("TRACKS" .. trackNames[weekNum][1] .. trackNames[weekNum][2] .. trackNames[weekNum][3], -1050, 140, 853, "center", nil, 1.5, 1.5)
+					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1] .. trackNames[weekNum][2] .. trackNames[weekNum][3], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
 				else
-					love.graphics.printf("TRACKS" .. trackNames[weekNum][1], -1050, 140, 853, "center", nil, 1.5, 1.5)
+					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
 				end
 				graphics.setColor(1,1,1)
 

@@ -156,9 +156,7 @@ return {
 				love.graphics.translate(cam.x * 0.5, cam.y * 0.5)
 
 				city:draw()
-				graphics.setColor(curWinColor[1] / 255, curWinColor[2] / 255, curWinColor[3] / 255)
-				cityWindows:draw()
-				graphics.setColor(1, 1, 1)
+				cityWindows:cdraw(curWinColor[1], curWinColor[2], curWinColor[3])
 			love.graphics.pop()
 			love.graphics.push()
 				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)

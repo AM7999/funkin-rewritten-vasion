@@ -124,6 +124,8 @@ return {
 
 		countdownFade = {}
 		countdown = love.filesystem.load("sprites/pixel/countdown.lua")()
+
+		countdown.sizeX, countdown.sizeY = 6.85, 6.85
 		
 		boyfriendIcon:animate("boyfriend (pixel)", false)
 
@@ -161,59 +163,6 @@ return {
 			end
 		end
 
-		function setDialogue(strList)
-			dialogueList = strList
-			curDialogue = 1
-			timer = 0
-			progress = 1
-			output = ""
-			isDone = false
-		end
-		
-		function doDialogue(dt)
-			local fullDialogue = dialogueList[curDialogue]
-			
-			timer = timer + dt
-			
-			if timer >= 0.05 then
-				if progress < string.len(fullDialogue) then
-					sounds["text"]:play()
-
-					progress = progress + 1
-
-					output = string.sub(fullDialogue, 1, math.floor(progress))
-
-					timer = 0
-				else
-					timer = 0
-				end
-			end
-		end
-
-		function advanceDialogue()
-			local fullDialogue = dialogueList[curDialogue]
-
-			if progress < string.len(fullDialogue) then
-				progress = string.len(fullDialogue)
-				output = string.sub(fullDialogue, 1, math.floor(progress))
-			else
-				if curDialogue < #dialogueList then
-					sounds["continue"]:play()
-					
-					curDialogue = curDialogue + 1
-					timer = 0
-					progress = 1
-					output = ""
-				else
-					sounds["continue"]:play()
-
-					isDone = true
-				end
-			end
-		end
-
-		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
-
 		if song ~= 3 then
 			sky = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/sky")))
 			school = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/school")))
@@ -223,15 +172,6 @@ return {
 			trees = love.filesystem.load("sprites/week6/trees.lua")()
 			petals = love.filesystem.load("sprites/week6/petals.lua")()
 			freaks = love.filesystem.load("sprites/week6/freaks.lua")()
-
-			sky.sizeX, sky.sizeY = 7, 7
-			school.sizeX, school.sizeY = 7, 7
-			street.sizeX, street.sizeY = 7, 7
-			treesBack.sizeX, treesBack.sizeY = 7, 7
-
-			trees.sizeX, trees.sizeY = 7, 7
-			petals.sizeX, petals.sizeY = 7, 7
-			freaks.sizeX, freaks.sizeY = 7, 7
 
 			enemyIcon:animate("senpai", false)
 		end
@@ -266,8 +206,6 @@ return {
 
 			spiritPortait.x, spiritPortait.y = 400, 250
 			scaryDialogueBox.x, scaryDialogueBox.y = 650, 375
-
-			school.sizeX, school.sizeY = 7, 7
 
 			setDialogue(
 				{
@@ -328,13 +266,13 @@ return {
 			voices = love.audio.newSource("music/week6/senpai-voices.ogg", "stream")
 		end
 
-		weeks:week6Upscale()
 
 		if storyMode then
-			dialogueMusic:play()
+			if song ~= 2 then
+				dialogueMusic:play()
+			end
 		end
 		self:initUI()
-		weeks:week6Upscale()
 		if not storyMode then
 			weeks:setupCountdown()
 		end
@@ -364,7 +302,7 @@ return {
 		end
 
 		if doingDialogue then
-			doDialogue(dt)
+			weeks:doDialogue(dt)
 			if song == 1 then
 				senpaiPortrait:update(dt)
 			elseif song == 2 then
@@ -376,11 +314,13 @@ return {
 			dialogueBox:update(dt)
 			if input:pressed("confirm") then
 				if not isDone then
-					advanceDialogue()
+					weeks:advanceDialogue()
 				end
 			end
 			if isDone then
-				dialogueMusic:stop()
+				if song ~= 2 then
+					dialogueMusic:stop()
+				end
 				doingDialogue = false
 				weeksPixel:setupCountdown()
 			end
@@ -418,25 +358,25 @@ return {
 				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
 				if song ~= 3 then
-					sky:draw()
+					sky:udraw()
 				end
 
-				school:draw()
+				school:udraw()
 				if song ~= 3 then
-					street:draw()
-					treesBack:draw()
+					street:udraw()
+					treesBack:udraw()
 
-					trees:draw()
-					petals:draw()
-					freaks:draw()
+					trees:udraw()
+					petals:udraw()
+					freaks:udraw()
 				end
-				girlfriend:draw()
+				girlfriend:udraw()
 			love.graphics.pop()
 			love.graphics.push()
 				love.graphics.translate(cam.x, cam.y)
 
-				enemy:draw()
-				boyfriend:draw()
+				enemy:udraw()
+				boyfriend:udraw()
 			love.graphics.pop()
 			love.graphics.push()
 				love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
@@ -463,7 +403,7 @@ return {
 				scaryDialogueBox:draw()
 				spiritPortait:draw()
 			end
-			love.graphics.printf(output, 150, 435, 200, "left", 0, 4.7, 4.7)
+			weeks:drawDialogue()
 		end
 		if not doingDialogue then
 			weeks:drawUI()
@@ -475,7 +415,6 @@ return {
 		stageBack = nil
 		stageFront = nil
 		curtains = nil
-		weeks:week6Downscale()
 		pixel = false
 		font = love.graphics.newFont("fonts/vcr.ttf", 24)
 

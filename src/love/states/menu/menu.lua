@@ -89,6 +89,10 @@ return {
 		music:stop()
 	end,
 
+	musicVolumeLower = function(self)
+		music:setVolume(0.4)
+	end,
+
 	update = function(self, dt)
 		girlfriendTitle:update(dt)
 		titleEnter:update(dt)

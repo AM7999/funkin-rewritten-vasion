@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("noteSplashes")),
+	images.notesplashes,
 	-- Automatically generated from noteSplashes.xml
 	{
 		{x = 0, y = 0, width = 194, height = 186, offsetX = -77, offsetY = -87, offsetWidth = 291, offsetHeight = 303}, -- 1: note splash blue 10000
@@ -38,11 +38,11 @@ return graphics.newSprite(
 	},
 
     {
-        ["down"] = {start = 1, stop = 4, speed = 24, offsetX = 0, offsetY = 0},
-        ["up"] = {start = 9, stop = 12, speed = 24, offsetX = 0, offsetY = 0},
-        ["left"] = {start = 17, stop = 20, speed = 24, offsetX = 0, offsetY = 0},
-        ["right"] = {start = 25, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
-        ["none"] = {start = 33, stop = 33, speed = 24, offsetX = 0, offsetY = 0}
+        ["down"] = {start = 5, stop = 8, speed = 20, offsetX = 0, offsetY = 0},
+        ["up"] = {start = 13, stop = 16, speed = 20, offsetX = 0, offsetY = 0},
+        ["left"] = {start = 21, stop = 24, speed = 20, offsetX = 0, offsetY = 0},
+        ["right"] = {start = 29, stop = 32, speed = 20, offsetX = 0, offsetY = 0},
+        ["none"] = {start = 33, stop = 33, speed = 20, offsetX = 0, offsetY = 0}
     },
     "none",
     false

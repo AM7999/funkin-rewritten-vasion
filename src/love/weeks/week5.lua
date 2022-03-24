@@ -340,6 +340,9 @@ return {
 					if enemyArrows[i]:getAnimName() == "off" then
 						graphics.setColor(0.6, 0.6, 0.6)
 					end
+					if settings.middleScroll then
+						love.graphics.setColor(0.6,0.6,0.6,0.3)
+					end
 					enemyArrows[i]:draw()
 					graphics.setColor(1, 1, 1)
 					boyfriendArrows[i]:draw()
@@ -374,6 +377,9 @@ return {
 
 								if animName == "hold" or animName == "end" then
 									graphics.setColor(1, 1, 1, 0.5)
+								end
+								if settings.middleScroll then
+									love.graphics.setColor(1,1,1,0.3)
 								end
 								enemyNotes[i][j]:draw()
 								graphics.setColor(1, 1, 1)

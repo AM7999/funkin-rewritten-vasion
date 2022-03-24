@@ -23,11 +23,6 @@ local curOS = love.system.getOS()
 local settingsStr = (curOS == "NX" and [[ 
 ; Friday Night Funkin' Rewritten Settings (Switch)
 
-[Audio]
-; Master volume
-; Possible values: 0.0-1.0
-volume=1.0
-
 [Keybinds]
 ; Set custom keybinds
 ; Look at https://love2d.org/wiki/KeyConstant for available keys
@@ -38,7 +33,7 @@ right=d
 
 ; These variables are read by the game for internal purposes, don't edit these unless you want to risk losing your current settings!
 [Data]
-settingsVer=5-nx
+settingsVer=6-nx
 ]]) or (curOS ~= "Web" and [[
 ; Friday Night Funkin' Rewritten Settings
 
@@ -53,11 +48,6 @@ fullscreen=false
 fullscreenType=desktop
 vsync=1
 
-[Audio]
-; Master volume
-; Possible values: 0.0-1.0
-volume=1.0
-
 [Keybinds]
 ; Set custom keybinds
 ; Look at https://love2d.org/wiki/KeyConstant for available keys
@@ -68,7 +58,7 @@ right=d
 
 ; These variables are read by the game for internal purposes, don't edit these unless you want to risk losing your current settings!
 [Data]
-settingsVer=5
+settingsVer=6
 ]])
 
 local settingsIni
@@ -90,8 +80,6 @@ if curOS == "NX" then
 	end
 
 	settingsIni = ini.load("settings.ini")
-
-	love.audio.setVolume(tonumber(ini.readKey(settingsIni, "Audio", "volume")))
 
 	customBindLeft = ini.readKey(settingsIni, "Keybinds", "left")
 	customBindDown = ini.readKey(settingsIni, "Keybinds", "down")
@@ -151,8 +139,6 @@ else
 			}
 		)
 	end
-
-	love.audio.setVolume(tonumber(ini.readKey(settingsIni, "Audio", "volume")))
 
 	customBindLeft = ini.readKey(settingsIni, "Keybinds", "left")
 	customBindDown = ini.readKey(settingsIni, "Keybinds", "down")
