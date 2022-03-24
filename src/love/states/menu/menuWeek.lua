@@ -27,16 +27,6 @@ local weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
-local titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/weekMenu")))
-
-local enemyDanceLines = love.filesystem.load("sprites/menu/storymenu/idlelines.lua")()
-
-local difficultyAnim = love.filesystem.load("sprites/menu/storymenu/difficulty.lua")()
-
-local bfDanceLines = love.filesystem.load("sprites/menu/storymenu/idlelines.lua")()
-
-local gfDanceLines = love.filesystem.load("sprites/menu/storymenu/idlelines.lua")()
-
 local tutorial, week1, week2, week3, week4, week5, week6
 
 local weekDesc = { -- Add your week description here
@@ -90,18 +80,6 @@ trackNames = { -- add your songs here
 	}
 }
 
--- Week Images
--- Just add a new images here
-tutorial = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week0")))
-week1 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week1")))
-week2 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week2")))
-week3 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week3")))
-week4 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week4")))
-week5 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week5")))
-week6 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week6")))
-
-enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
-
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
@@ -109,21 +87,8 @@ local function switchMenu(menu)
 
 end
 
-enemyDanceLines.x, enemyDanceLines.y = -375, -170
-
-bfDanceLines.sizeX, bfDanceLines.sizeY = 0.7, 0.7
-gfDanceLines.sizeX, gfDanceLines.sizeY = 0.5, 0.5
-
-bfDanceLines.x, bfDanceLines.y = 0, -150
-gfDanceLines.x, gfDanceLines.y = 375, -170
-
-difficultyAnim.x, difficultyAnim.y = 400, 220
-
 return {
 	enter = function(self, previous)
-        bfDanceLines:animate("boyfriend", true)
-		gfDanceLines:animate("girlfriend", true)
-		enemyDanceLines:animate("week1", true)
 		songNum = 0
 		weekNum = 1	
 
@@ -140,6 +105,38 @@ return {
 			nextPresenceUpdate = 0
 		end
 
+		
+		titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/weekMenu")))
+
+		enemyDanceLines = love.filesystem.load("sprites/menu/storymenu/idlelines.lua")()
+
+		difficultyAnim = love.filesystem.load("sprites/menu/storymenu/difficulty.lua")()
+
+		bfDanceLines = love.filesystem.load("sprites/menu/storymenu/idlelines.lua")()
+
+		gfDanceLines = love.filesystem.load("sprites/menu/storymenu/idlelines.lua")()
+
+		enemyDanceLines.x, enemyDanceLines.y = -375, -170
+		enemyDanceLines.sizeX, enemyDanceLines.sizeY = 0.5, 0.5
+
+		bfDanceLines.sizeX, bfDanceLines.sizeY = 0.7, 0.7
+		gfDanceLines.sizeX, gfDanceLines.sizeY = 0.5, 0.5
+
+		bfDanceLines.x, bfDanceLines.y = 0, -150
+		gfDanceLines.x, gfDanceLines.y = 375, -170
+
+		difficultyAnim.x, difficultyAnim.y = 400, 220
+
+		-- Week Images
+		-- Just add a new images here
+		tutorial = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week0")))
+		week1 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week1")))
+		week2 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week2")))
+		week3 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week3")))
+		week4 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week4")))
+		week5 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week5")))
+		week6 = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/storymenu/week6")))
+
 		weekImages = { -- Images are preloaded
 			tutorial,
 			week1,
@@ -149,6 +146,10 @@ return {
 			week5,
 			week6
 		}
+
+		bfDanceLines:animate("boyfriend", true)
+		gfDanceLines:animate("girlfriend", true)
+		enemyDanceLines:animate("week1", true)
 
 		if weekNum ~= 1 then
 			weekBefore = weekImages[weekNum - 1]
@@ -334,7 +335,19 @@ return {
 	end,
 
 	leave = function(self)
-
+		week0 = nil
+		week1 = nil
+		week2 = nil
+		week3 = nil
+		week4 = nil
+		week5 = nil
+		week6 = nil
+		enemyDanceLines = nil
+		bfDanceLines = nil
+		gfDanceLines = nil
+		titleBG = nil
+		difficultyAnim = nil
+		weekImages = nil
 		Timer.clear()
 	end
 }

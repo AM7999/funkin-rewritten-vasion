@@ -27,9 +27,6 @@ local weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
-local menuBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/title-bg")))
-
-
 local menuNames = {
 	"Story Mode",
 	"Freeplay",
@@ -300,6 +297,8 @@ return {
 
 		switchMenu(1)
 
+		menuBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/title-bg")))
+
 		graphics.setFade(0)
 		graphics.fadeIn(0.5)
 		if useDiscordRPC then
@@ -333,7 +332,13 @@ return {
 				audio.playSound(selectSound)
 
 				if menuState == 1 then
-					Gamestate.switch(menuSelect)
+					graphics.fadeOut(
+                        0.3,
+                        function()
+                            Gamestate.switch(menuSelect)
+                            status.setLoading(false)
+                        end
+	            	)
 				else
 					menuState = menuState - 1
 				end
@@ -357,7 +362,7 @@ return {
 	end,
 
 	leave = function(self)
-
+		menuBG = nil
 		Timer.clear()
 	end
 }

@@ -21,34 +21,31 @@ local leftFunc, rightFunc, confirmFunc, backFunc, drawFunc
 
 local menuState
 
-local titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuBG")))
-
-local options = love.filesystem.load("sprites/menu/menuButtons.lua")()
-local story = love.filesystem.load("sprites/menu/menuButtons.lua")()
-local freeplay = love.filesystem.load("sprites/menu/menuButtons.lua")()
-
 local menuButton
 
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
-
 local function switchMenu(menu)
 	menuState = 1
 end
-
-story.y = -200
-freeplay.y = 0
-options.y = 200
-
 
 return {
 	enter = function(self, previous)
 		menuButton = 1
 		songNum = 0
+        titleBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/menuBG")))
+
+        options = love.filesystem.load("sprites/menu/menuButtons.lua")()
+        story = love.filesystem.load("sprites/menu/menuButtons.lua")()
+        freeplay = love.filesystem.load("sprites/menu/menuButtons.lua")()
         story:animate("story hover", true)
         freeplay:animate("freeplay", true)
         options:animate("options", true)
+
+        story.y = -200
+        freeplay.y = 0
+        options.y = 200
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
 		camScale.x, camScale.y = 0.9, 0.9
@@ -128,16 +125,31 @@ return {
 				--confirmFunc()
                 if menuButton == 1 then
                     status.setLoading(true)
-                    Gamestate.switch(menuWeek)
-                    status.setLoading(false)
+                    graphics.fadeOut(
+                        0.3,
+                        function()
+                            Gamestate.switch(menuWeek)
+                            status.setLoading(false)
+                        end
+	            	)
                 elseif menuButton == 2 then
                     status.setLoading(true)
-                    Gamestate.switch(menuFreeplay)
-                    status.setLoading(false)
+                    graphics.fadeOut(
+                        0.3,
+                        function()
+                            Gamestate.switch(menuFreeplay)
+                            status.setLoading(false)
+                        end
+	            	)
                 elseif menuButton == 3 then
                     status.setLoading(true)
-                    Gamestate.switch(menuSettings)
-                    status.setLoading(false)
+                    graphics.fadeOut(
+                        0.3,
+                        function()
+                            Gamestate.switch(menuSettings)
+                            status.setLoading(false)
+                        end
+	            	)
                 end
 			elseif input:pressed("back") then
 				audio.playSound(selectSound)
@@ -159,12 +171,16 @@ return {
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
-                love.graphics.color.printf("Funkin' Vasion: v1.5\nFNFR: v1.1.0-beta2", -708, 340, 833, "left", nil, 1, 1, 200, 200, 200, 0.8)
+                love.graphics.color.printf("Funkin' Vasion: v1.5.1\nFNFR: v1.1.0-beta2", -708, 340, 833, "left", nil, 1, 1, 200, 200, 200, 0.8)
 			love.graphics.pop()
 		love.graphics.pop()
 	end,
 
 	leave = function(self)
+        titleBG = nil
+        story = nil
+        freeplay = nil
+        options = nil
 		Timer.clear()
 	end
 }

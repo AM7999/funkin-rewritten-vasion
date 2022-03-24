@@ -63,15 +63,63 @@ settingsDescriptions2 = {
 }
 
 local function switchMenu(menu)
-	function backFunc()
-		status.setLoading(true)
-		Gamestate.switch(menuSelect)
-        status.setLoading(false)
-    end
 end
 
 return {
 	enter = function(self, previous)
+
+        function saveSettings()
+            if settings.hardwareCompression ~= data.saveSettingsMoment.hardwareCompression then
+                data = {}
+                if settings.hardwareCompression then
+                    imageTyppe = "dds" 
+                else
+                    imageTyppe = "png"
+                end
+                data.saveSettingsMoment = {
+                    hardwareCompression = settings.hardwareCompression,
+                    downscroll = settings.downscroll,
+                    ghostTapping = settings.ghostTapping,
+                    showDebug = settings.showDebug,
+                    setImageType = imageTyppe,
+                    sideJudgements = settings.sideJudgements,
+                    botPlay = settings.botPlay,
+                    middleScroll = settings.middleScroll,
+                    settingsVer = settingsVer
+                }
+                serialized = lume.serialize(data)
+                love.filesystem.write("settings", serialized)
+                love.window.showMessageBox("Settings Saved!", "Settings saved. Funkin Vasion will now restart to make sure your settings saved")
+                love.event.quit("restart")
+            else
+                data = {}
+                if settings.hardwareCompression then
+                    imageTyppe = "dds" 
+                else
+                    imageTyppe = "png"
+                end
+                data.saveSettingsMoment = {
+                    hardwareCompression = settings.hardwareCompression,
+                    downscroll = settings.downscroll,
+                    ghostTapping = settings.ghostTapping,
+                    showDebug = settings.showDebug,
+                    setImageType = imageTyppe,
+                    sideJudgements = settings.sideJudgements,
+                    botPlay = settings.botPlay,
+                    middleScroll = settings.middleScroll,
+                    settingsVer = settingsVer
+                }
+                serialized = lume.serialize(data)
+                love.filesystem.write("settings", serialized)
+                graphics.fadeOut(
+                    0.3,
+                    function()
+                        Gamestate.switch(menuSelect)
+                        status.setLoading(false)
+                    end
+                )
+            end
+        end
 
 		songNum = 0
         settingSelect = 1
@@ -106,50 +154,7 @@ return {
                         elseif settingSelect == 2 then
                             settingsMenuState = 2
                         elseif settingSelect == 3 then
-                            if settings.hardwareCompression ~= data.saveSettingsMoment.hardwareCompression then
-                                data = {}
-                                if settings.hardwareCompression then
-                                    imageTyppe = "dds" 
-                                else
-                                    imageTyppe = "png"
-                                end
-                                data.saveSettingsMoment = {
-                                    hardwareCompression = settings.hardwareCompression,
-                                    downscroll = settings.downscroll,
-                                    ghostTapping = settings.ghostTapping,
-                                    showDebug = settings.showDebug,
-                                    setImageType = imageTyppe,
-                                    sideJudgements = settings.sideJudgements,
-                                    botPlay = settings.botPlay,
-                                    middleScroll = settings.middleScroll,
-                                    settingsVer = settingsVer
-                                }
-                                serialized = lume.serialize(data)
-                                love.filesystem.write("settings", serialized)
-                                love.window.showMessageBox("Settings Saved!", "Settings saved. Funkin Vasion will now restart to make sure your settings saved")
-                                love.event.quit("restart")
-                            else
-                                data = {}
-                                if settings.hardwareCompression then
-                                    imageTyppe = "dds" 
-                                else
-                                    imageTyppe = "png"
-                                end
-                                data.saveSettingsMoment = {
-                                    hardwareCompression = settings.hardwareCompression,
-                                    downscroll = settings.downscroll,
-                                    ghostTapping = settings.ghostTapping,
-                                    showDebug = settings.showDebug,
-                                    setImageType = imageTyppe,
-                                    sideJudgements = settings.sideJudgements,
-                                    botPlay = settings.botPlay,
-                                    middleScroll = settings.middleScroll,
-                                    settingsVer = settingsVer
-                                }
-                                serialized = lume.serialize(data)
-                                love.filesystem.write("settings", serialized)
-                                Gamestate.switch(menuSelect)
-                            end
+                            saveSettings()
                         end
                     elseif settingsMenuState == 1 then
                         if settingSelect == 1 then
@@ -208,7 +213,7 @@ return {
 				audio.playSound(selectSound)
 
                 if settingsMenuState == 0 then
-			    	backFunc()
+			    	saveSettings()
                 else
                     settingsMenuState = 0
                     settingSelect = 1

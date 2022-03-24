@@ -27,23 +27,12 @@ local weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
-local logo = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/logo"))) 
-
-local girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
-local titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
-
 local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
 local music = love.audio.newSource("music/menu/menu.ogg", "stream")
 
 local function switchMenu(menu)
-	
-	function confirmFunc()
-        status.setLoading(true)
-		Gamestate.switch(menuSelect)
-        status.setLoading(false)
-	end
 	function backFunc()
 		graphics.fadeOut(0.5, love.event.quit)
 	end
@@ -51,17 +40,20 @@ local function switchMenu(menu)
 	menuState = 1
 end
 
-logo.x, logo.y = -350, -125
-
-girlfriendTitle.x, girlfriendTitle.y = 325, 65
-
-titleEnter.x, titleEnter.y = 225, 350
-
 music:setLooping(true)
 
 return {
 	enter = function(self, previous)
+		logo = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/logo"))) 
+
+		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()
+		titleEnter = love.filesystem.load("sprites/menu/titleEnter.lua")()
         titleEnter:animate("anim", true)
+		logo.x, logo.y = -350, -125
+
+		girlfriendTitle.x, girlfriendTitle.y = 325, 65
+
+		titleEnter.x, titleEnter.y = 225, 350
 		songNum = 0
 
 		cam.sizeX, cam.sizeY = 0.9, 0.9
@@ -102,10 +94,18 @@ return {
 			if input:pressed("confirm") then
 				audio.playSound(confirmSound)
 
-				titleEnter:animate("pressed", false)
-
-
-				confirmFunc()
+				titleEnter:animate("pressed", true)
+				Timer.after(0.6, 
+					function()
+						graphics.fadeOut(
+							0.3,
+							function()
+								Gamestate.switch(menuSelect)
+								status.setLoading(false)
+							end
+						)
+					end
+				)	
 			elseif input:pressed("back") then
 				audio.playSound(selectSound)
 
@@ -131,7 +131,9 @@ return {
 	end,
 
 	leave = function(self)
-		--music:stop()
+		girlfriendTitle = nil
+		titleEnter = nil
+		logo = nil
 
 		Timer.clear()
 	end
