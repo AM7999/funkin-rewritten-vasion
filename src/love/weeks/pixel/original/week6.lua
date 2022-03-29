@@ -81,7 +81,7 @@ return {
 
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notes = love.graphics.newImage(graphics.imagePath("pixel/notes")),
+			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes")),
 			notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers"))
 		}

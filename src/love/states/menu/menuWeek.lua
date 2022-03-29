@@ -156,7 +156,7 @@ return {
 			weekBefore.y = 130
 		end
 		weekImages[weekNum].y = 220
-		if weekNum ~= 7 then
+		if weekNum ~= #trackNames then
 			weekAfter = weekImages[weekNum + 1]
 			weekAfter.y = 320
 		end
@@ -226,7 +226,7 @@ return {
 				weekBefore.y = 130
 			end
 			weekImages[weekNum].y = 220
-			if weekNum ~= 7 then
+			if weekNum ~= #trackNames then
 				weekAfter.y = 320
 			end
 
@@ -251,7 +251,7 @@ return {
 			if input:pressed("down") then
 				audio.playSound(selectSound)
 
-				if weekNum ~= 7 then -- change 7 to the ammount of weeks there is (tutorial-6)
+				if weekNum ~= #trackNames then -- change 7 to the ammount of weeks there is (tutorial-6)
 					weekNum = weekNum + 1
 				else
 					weekNum = 1
@@ -264,7 +264,7 @@ return {
 				if weekNum ~= 1 then
 					weekNum = weekNum - 1
 				else
-					weekNum = 7
+					weekNum = #trackNames
 				end
 				menuFunc()
 
@@ -318,7 +318,7 @@ return {
 					weekBefore:draw()
 				end
 				weekImages[weekNum]:draw()
-				if weekNum ~= 7 then
+				if weekNum ~= #trackNames then
 					weekAfter:draw()
 				end
 
@@ -328,7 +328,6 @@ return {
 				else
 					love.graphics.color.printf("TRACKS" .. trackNames[weekNum][1], -1050, 140, 853, "center", nil, 1.5, 1.5, 255, 117, 172)
 				end
-				graphics.setColor(1,1,1)
 
 			love.graphics.pop()
 		love.graphics.pop()

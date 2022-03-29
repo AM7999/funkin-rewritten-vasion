@@ -61,6 +61,7 @@ function love.load()
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
 	weeksPixel = require "states.weeks.weeks-pixel"
+	weeks_test = require "states.weeks.week_test"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -105,6 +106,8 @@ function love.load()
 			require "weeks.pixel.fnfr.week6" -- Use FNFR's pixel engine
 		}
 	end
+
+	testSong = require "weeks.test" -- Test song easter egg
 
 	if love.filesystem.getInfo("settings.data") then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")

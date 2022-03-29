@@ -61,7 +61,7 @@ return {
 
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("pixel/icons")),
-			notes = love.graphics.newImage(graphics.imagePath("pixel/notes")),
+			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes")),
 			notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")), -- Thank you phantomclo :). You are based
 			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers"))
 		}
