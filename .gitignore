@@ -25,8 +25,12 @@ tools/funkin-json/*
 tools/funkin-json-sniff/*
 tools/funkin-xml/*
 tools/funkin-xna/*
+tools/funkin-json-ignore-psych-events/*
+tools/funkin-json-special/* 
 
 !tools/funkin-json/funkin-json.py
 !tools/funkin-json-sniff/funkin-json-sniff.py
 !tools/funkin-xml/funkin-xml.py
 !tools/funkin-xna/funkin-xna.py
+!tools/funkin-json-ignore-psych-events/funkin-json.py
+!tools/funkin-json-special/funkin-json.py 
