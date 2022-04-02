@@ -75,3 +75,4 @@ for i in range(1, len(sys.argv)):
 
     with open(os.path.splitext(jsonfile)[0] + '.lua', 'w') as f:
         f.write(lua)
+print("Conversion finished.\nPlease take note that this chart will not work with special notes unless you make code for it in the weeks.lua\nAsk me on Discord for an example weeks.lua\n- GuglioIsStupid#4413")
