@@ -21,6 +21,10 @@
 
 # Special Note additions by Guglio
 
+# Note: These will not work out of the box, you will have to have a bit of knowledge to be able to make code that works with it.
+# Ask me on Discord for an example weeks.lua 
+# - GuglioIsStupid#4413
+
 import json
 import os
 import sys
