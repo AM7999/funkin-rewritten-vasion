@@ -935,7 +935,7 @@ return {
 	doDialogue = function(dt)
 		local fullDialogue = dialogueList[curDialogue]
 		
-		timer = timer + 0.002
+		timer = timer + 0.02
 		
 		if timer >= 0.05 then
 			if progress < string.len(fullDialogue) then
