@@ -157,6 +157,8 @@ local function switchMenu(menu)
 								doingWeek4 = false
 							end
 
+							menu:musicStop()
+
 							Gamestate.switch(weekData[weekNum], songNum, songAppend)
 
 							status.setLoading(false)
@@ -293,6 +295,7 @@ function confirmFunc()
 
 				storyMode = false
 
+				menu:musicStop()
 				Gamestate.switch(testSong, songNum, songAppend)
 
 				status.setLoading(false)
