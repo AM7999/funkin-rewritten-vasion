@@ -21,6 +21,10 @@
 
 # Special Note additions by Guglio
 
+# Note: Converted charts will not work as-is, you will have to have a bit of knowledge to be able to make code that works with it.
+# Ask me on Discord for an example weeks.lua
+# - GuglioIsStupid#4413
+
 import json
 import os
 import sys
@@ -46,20 +50,21 @@ for i in range(1, len(sys.argv)):
         if len(j['sectionNotes']) > 0:
             lua += '\t\tsectionNotes = {\n'
             for k in j['sectionNotes']:
-                if len(k) == 4:
-                    lua += ('\t\t\t{\n'
-                        '\t\t\t\tnoteTime = ' + str(k[0]) + ',\n'
-                        '\t\t\t\tnoteType = ' + str(k[1]) + ',\n'
-                        '\t\t\t\tnoteLength = ' + str(k[2]) + ',\n'
-                        '\t\t\t\tnoteVersion = "' + str(k[3]) + '"\n'
-                        '\t\t\t},\n')
-                else:
-                    lua += ('\t\t\t{\n'
-                        '\t\t\t\tnoteTime = ' + str(k[0]) + ',\n'
-                        '\t\t\t\tnoteType = ' + str(k[1]) + ',\n'
-                        '\t\t\t\tnoteLength = ' + str(k[2]) + ',\n'
-                        '\t\t\t\tnoteVersion = "Normal"\n'
-                        '\t\t\t},\n')
+                if k[1] != -1:
+                    if len(k) == 4:
+                        lua += ('\t\t\t{\n'
+                            '\t\t\t\tnoteTime = ' + str(k[0]) + ',\n'
+                            '\t\t\t\tnoteType = ' + str(k[1]) + ',\n'
+                            '\t\t\t\tnoteLength = ' + str(k[2]) + ',\n'
+                            '\t\t\t\tnoteVersion = "' + str(k[3]) + '"\n'
+                            '\t\t\t},\n')
+                    else:
+                        lua += ('\t\t\t{\n'
+                            '\t\t\t\tnoteTime = ' + str(k[0]) + ',\n'
+                            '\t\t\t\tnoteType = ' + str(k[1]) + ',\n'
+                            '\t\t\t\tnoteLength = ' + str(k[2]) + ',\n'
+                            '\t\t\t\tnoteVersion = "Normal"\n'
+                            '\t\t\t},\n')
             lua = (lua[:len(lua) - 4] + '}\n'
                    '\t\t}\n')
         else:
@@ -71,3 +76,5 @@ for i in range(1, len(sys.argv)):
 
     with open(os.path.splitext(jsonfile)[0] + '.lua', 'w') as f:
         f.write(lua)
+
+print("Conversion finished.\nPlease take note that this chart will not work with special notes unless you make code for it in the weeks.lua\nAsk me on Discord for an example weeks.lua\n- GuglioIsStupid#4413")
