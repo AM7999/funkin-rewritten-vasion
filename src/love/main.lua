@@ -109,12 +109,7 @@ function love.load()
 
 	testSong = require "weeks.test" -- Test song easter egg
 
-	if love.filesystem.getInfo("settings.data") then
-		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
-		love.filesystem.remove("settings.data")
-	end
-
-	if love.filesystem.getInfo("mods", "directory") then
+	if not love.filesystem.getInfo("mods", "directory") then
 		love.filesystem.createDirectory("mods") -- WIP
 	end
 
@@ -171,6 +166,13 @@ function love.load()
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
+
+	if settingsVer ~= 1 then
+		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
+		love.filesystem.remove("settings.data")
+	end
+
+
 	-----------------------------------------------------------------------------------------
 
 	-- LÖVE init
