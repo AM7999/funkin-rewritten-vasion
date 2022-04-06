@@ -23,7 +23,7 @@ local menuState
 
 local menuNum = 1
 
-local weekNum = 1
+weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
@@ -200,7 +200,7 @@ return {
 
 					storyMode = true
 
-					Gamestate.switch(weekData[weekNum], songNum, songAppend)
+					Gamestate.switch(weekData[weekNum], songNum, songAppend, weekNum, trackNames)
 
 					status.setLoading(false)
 				end

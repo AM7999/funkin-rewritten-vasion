@@ -325,6 +325,8 @@ return {
 		end
 
 		speed = chart.speed
+		songName = chart.songName
+		needsVoices = chart.needsVoices
 
 		for i = 1, #chart do
 			eventBpm = chart[i].bpm

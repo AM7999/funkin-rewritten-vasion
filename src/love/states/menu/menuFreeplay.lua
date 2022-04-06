@@ -23,7 +23,6 @@ local menuState
 
 local menuNum = 1
 
-local weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 local pressedUp = 0
@@ -183,6 +182,8 @@ local function switchMenu(menu)
 
 						storyMode = false
 
+						menu:musicStop()
+
 						Gamestate.switch(testSong, songNum, songAppend)
 
 						status.setLoading(false)
@@ -271,6 +272,8 @@ function confirmFunc()
 						doingWeek4 = false
 					end
 
+					menu:musicStop()
+
 					Gamestate.switch(weekData[weekNum], songNum, songAppend)
 
 					status.setLoading(false)
@@ -352,7 +355,7 @@ end
 return {
 	enter = function(self, previous)
 		songNum = 0
-
+		weekNum = 1
 		bf = love.filesystem.load("sprites/boyfriend.lua")()
 		love.graphics.setDefaultFilter("nearest")
 		pbf = love.filesystem.load("sprites/pixel/boyfriend.lua")()

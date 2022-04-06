@@ -425,8 +425,12 @@ return {
 	leave = function()
 		walls = nil
 		escalator = nil
-
+		topBop = nil
+		bottomBop = nil
+		christmasTree = nil
 		santa = nil
+		snow = nil
+		
 
 		week5Playing = false
 

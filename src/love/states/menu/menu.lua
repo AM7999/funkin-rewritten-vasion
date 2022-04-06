@@ -23,7 +23,6 @@ local menuState
 
 local menuNum = 1
 
-local weekNum = 1
 local songNum, songAppend
 local songDifficulty = 2
 
@@ -44,6 +43,7 @@ music:setLooping(true)
 
 return {
 	enter = function(self, previous)
+
 		logo = graphics.newImage(love.graphics.newImage(graphics.imagePath("menu/logo"))) 
 
 		girlfriendTitle = love.filesystem.load("sprites/menu/girlfriend-title.lua")()

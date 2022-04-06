@@ -109,10 +109,6 @@ function love.load()
 
 	testSong = require "weeks.test" -- Test song easter egg
 
-	if not love.filesystem.getInfo("mods", "directory") then
-		love.filesystem.createDirectory("mods") -- WIP
-	end
-
 	-- You don't need to mess with this unless you are adding a custom setting (Will nil be default (AKA. False)) --
 	if love.filesystem.getInfo("settings") then 
 		file = love.filesystem.read("settings")
