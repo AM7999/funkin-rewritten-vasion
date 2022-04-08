@@ -34,3 +34,6 @@ tools/funkin-json-special/*
 !tools/funkin-xna/funkin-xna.py
 !tools/funkin-json-ignore-psych-events/funkin-json.py
 !tools/funkin-json-special/funkin-json.py 
+
+# My things for FV updates (commented so i don't leak an update)
+FVUpdateMoment.txt
