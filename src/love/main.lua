@@ -60,20 +60,15 @@ function love.load()
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
-	weeksPixel = require "states.weeks.weeks-pixel"
 	weeks_test = require "states.weeks.week_test"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
-	gameOverPixel = require "substates.game-over-pixel"
 
 	uiTextColour = {1,1,1} -- Set a custom UI colour (Put it in the weeks file to change it for only that week)
 	-- When adding custom colour for the health bar. Make sure to use 255 RGB values. It will automatically convert it for you.
 	healthBarColorPlayer = {49,176,209} -- BF's icon colour
 	healthBarColorEnemy = {165,0,77} -- GF's icon colour
-
-	useOriginalPixel = true -- Set this to false to use FNFR's pixel engine
-	--                         But please keep in mind. This will not longer be updated.
 
 	function setDialogue(strList)
 		dialogueList = strList
@@ -85,27 +80,15 @@ function love.load()
 	end
 
 	-- Load week data
-	if useOriginalPixel then
-		weekData = {
-			require "weeks.tutorial",
-			require "weeks.week1",
-			require "weeks.week2",
-			require "weeks.week3",
-			require "weeks.week4",
-			require "weeks.week5",
-			require "weeks.pixel.original.week6" -- Use a pixel engine like the original FNF
-		}
-	else
-		weekData = {
-			require "weeks.tutorial",
-			require "weeks.week1",
-			require "weeks.week2",
-			require "weeks.week3",
-			require "weeks.week4",
-			require "weeks.week5",
-			require "weeks.pixel.fnfr.week6" -- Use FNFR's pixel engine
-		}
-	end
+	weekData = {
+		require "weeks.tutorial",
+		require "weeks.week1",
+		require "weeks.week2",
+		require "weeks.week3",
+		require "weeks.week4",
+		require "weeks.week5",
+		require "weeks.week6"
+	}
 
 	testSong = require "weeks.test" -- Test song easter egg
 
@@ -121,6 +104,11 @@ function love.load()
 		settings.sideJudgements = data.saveSettingsMoment.sideJudgements
 		settings.botPlay = data.saveSettingsMoment.botPlay
 		settings.middleScroll = data.saveSettingsMoment.middleScroll
+		settings.randomNotePlacements = data.saveSettingsMoment.randomNotePlacements
+		settings.practiceMode = data.saveSettingsMoment.practiceMode
+		settings.noMiss = data.saveSettingsMoment.noMiss
+		settings.noHolds = data.saveSettingsMoment.noHolds
+
 
 		settingsVer = data.saveSettingsMoment.settingsVer
 
@@ -133,20 +121,29 @@ function love.load()
 			sideJudgements = settings.sideJudgements,
 			botPlay = settings.botPlay,
 			middleScroll = settings.middleScroll,
+			randomNotePlacements = settings.randomNotePlacements,
+			practiceMode = settings.practiceMode,
+			noMiss = settings.noMiss,
+			noHolds = settings.noHolds,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 1 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 2 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
+		settings.middleScroll = false
 		settings.ghostTapping = false
 		settings.showDebug = false
 		settings.sideJudgements = false
 		settings.botPlay = false
-		settingsVer = 1
+		settings.randomNotePlacements = false
+		settings.practiceMode = false
+		settings.noMiss = false
+		settings.noHolds = false
+		settingsVer = 2
 		data = {}
 		data.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -157,13 +154,17 @@ function love.load()
 			sideJudgements = settings.sideJudgements,
 			botPlay = settings.botPlay,
 			middleScroll = settings.middleScroll,
+			randomNotePlacements = settings.randomNotePlacements,
+			practiceMode = settings.practiceMode,
+			noMiss = settings.noMiss,
+			noHolds = settings.noHolds,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(data)
 		love.filesystem.write("settings", serialized)
 	end
 
-	if settingsVer ~= 1 then
+	if settingsVer ~= 2 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings.data")
 	end
@@ -221,16 +222,16 @@ function love.load()
 end
 function love.graphics.setColorF(R,G,B,A)
 	R, G, B = R/255, G/255, B/255 -- convert 255 values to work with the setColor
-	love.graphics.setColor(R,G,B,A) -- Alpha is not converted because using 255 alpha can be strange (I much rather 0-1 values lol)
+	graphics.setColor(R,G,B,A) -- Alpha is not converted because using 255 alpha can be strange (I much rather 0-1 values lol)
 end
 function love.graphics.color.print(text,x,y,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-    love.graphics.setColorF(R,G,B,A)
+    graphics.setColorF(R,G,B,A)
     love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky) -- When I learn the code for remaking love.graphics.print() I will update it (Although this works too)
     love.graphics.setColorF(255,255,255,1)
 end
 
 function love.graphics.color.printf(text,x,y,limit,align,r,sx,sy,R,G,B,A,ox,oy,kx,ky)
-    love.graphics.setColorF(R,G,B,A)
+    graphics.setColorF(R,G,B,A)
     love.graphics.printf(text,x,y,limit,align,r,sx,sy,ox,oy,kx,ky) -- Part 2
     love.graphics.setColorF(255,255,255,1)
 end

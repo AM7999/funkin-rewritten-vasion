@@ -17,44 +17,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
---[[
-
-
-I AM SO SORRY MODDERS FOR MY SHIT CODE
-
-:(
-
-I made this code at like 1am lmfao
-
-]]
-
---[[
-
-	THIS WEEKS FILE USES FNFR's ORIGINAL WAY OF HANDELING PIXEL WEEKS
-
-]]--
-
-local canvas, font
-
 local song, difficulty
 
-local sky, school, street, treesBack
-
-local petals, trees, freaks
+local dialogueBox, senpaiPortrait, bfPortrait
+local school, sky, street, trees, treesBack, petals, freaks, spiritPortait, angrySenpaiBox, scaryDialogueBox
 
 return {
 	enter = function(self, from, songNum, songAppend)
-		love.graphics.setDefaultFilter("nearest")
-
-		status.setNoResize(true)
-
-		canvas = love.graphics.newCanvas(256, 144)
-		font = love.graphics.newFont("fonts/pixel_small.fnt")
-
-		weeksPixel:enter()
-
+		cam.sizeX, cam.sizeY = 0.78, 0.78
+		camScale.x, camScale.y = 0.78, 0.78
+		weeks:pixelEnter()
+		
 		song = songNum
 		difficulty = songAppend
+
+		healthBarColorEnemy = {255,170,111}
 
 		if storyMode then
 			doingDialogue = true
@@ -66,9 +43,13 @@ return {
 			bfPortrait:animate("anim", false)
 			senpaiPortrait:animate("anim", false)
 
-			dialogueBox.x, dialogueBox.y = 125, 90
-			bfPortrait.x, bfPortrait.y = 125, 90
-			senpaiPortrait.x, senpaiPortrait.y = 125, 90
+			dialogueBox.sizeX, dialogueBox.sizeY = 6, 6
+			senpaiPortrait.sizeX, senpaiPortrait.sizeY = 6, 6
+			bfPortrait.sizeX, bfPortrait.sizeY = 6, 6
+
+			dialogueBox.x, dialogueBox.y = 650, 375
+			bfPortrait.x, bfPortrait.y = 650, 375
+			senpaiPortrait.x, senpaiPortrait.y = 650, 375
 			if song ~= 3 then
 				dialogueMusic = love.audio.newSource("music/pixel/Lunchbox.ogg", "static")
 				dialogueMusic:setLooping(true)
@@ -78,60 +59,6 @@ return {
 				dialogueMusic = love.audio.newSource("music/pixel/LunchboxScary.ogg", "static")
 				dialogueMusic:setLooping(true)
 				dialogueMusic:play()
-			end
-		end
-
-		cam.sizeX, cam.sizeY = 1, 1
-		camScale.x, camScale.y = 1, 1
-
-		function setDialogue(strList)
-			dialogueList = strList
-			curDialogue = 1
-			timer = 0
-			progress = 1
-			output = ""
-			isDone = false
-		end
-		
-		function doDialogue(dt)
-			local fullDialogue = dialogueList[curDialogue]
-			
-			timer = timer + dt
-			
-			if timer >= 0.05 then
-				if progress < string.len(fullDialogue) then
-					sounds["text"]:play()
-
-					progress = progress + 1
-
-					output = string.sub(fullDialogue, 1, math.floor(progress))
-
-					timer = 0
-				else
-					timer = 0
-				end
-			end
-		end
-
-		function advanceDialogue()
-			local fullDialogue = dialogueList[curDialogue]
-
-			if progress < string.len(fullDialogue) then
-				progress = string.len(fullDialogue)
-				output = string.sub(fullDialogue, 1, math.floor(progress))
-			else
-				if curDialogue < #dialogueList then
-					sounds["continue"]:play()
-					
-					curDialogue = curDialogue + 1
-					timer = 0
-					progress = 1
-					output = ""
-				else
-					sounds["continue"]:play()
-
-					isDone = true
-				end
 			end
 		end
 
@@ -145,16 +72,12 @@ return {
 			petals = love.filesystem.load("sprites/week6/petals.lua")()
 			freaks = love.filesystem.load("sprites/week6/freaks.lua")()
 
-			sky.y = 1
-			school.y = 1
-
-			healthBarColorEnemy = {255,170,111}
+			enemyIcon:animate("senpai", false)
 		end
 
-		boyfriend.x, boyfriend.y = 50, 30
-		fakeBoyfriend.x, fakeBoyfriend.y = 50, 30
-
-		enemyIcon:animate("senpai", false)
+		girlfriend.x, girlfriend.y = 30, -50
+		boyfriend.x, boyfriend.y = 300, 190
+		fakeBoyfriend.x, fakeBoyfriend.y = 300, 190
 
 		self:load()
 	end,
@@ -171,13 +94,17 @@ return {
 
 			scaryDialogueBox = love.filesystem.load("sprites/week6/scaryDialogueBox.lua")()
 			spiritPortait = graphics.newImage(love.graphics.newImage(graphics.imagePath("week6/spiritFaceForward")))
-			spiritPortait.x, spiritPortait.y = 70, 50
-			scaryDialogueBox.x, scaryDialogueBox.y = 125, 90
 			if storyMode then
-				dialogueMusic = love.audio.newSource("music/pixel/lunchboxScary.ogg", "static")
+				dialogueMusic = love.audio.newSource("music/pixel/LunchboxScary.ogg", "static")
 				dialogueMusic:setLooping(true)
 				dialogueMusic:play()
 			end
+
+			spiritPortait.sizeX, spiritPortait.sizeY = 6, 6
+			scaryDialogueBox.sizeX, scaryDialogueBox.sizeY = 6, 6
+
+			spiritPortait.x, spiritPortait.y = 400, 250
+			scaryDialogueBox.x, scaryDialogueBox.y = 650, 375
 
 			setDialogue(
 				{
@@ -195,7 +122,9 @@ return {
 			enemy = love.filesystem.load("sprites/week6/senpai-angry.lua")()
 
 			angrySenpaiBox = love.filesystem.load("sprites/week6/angrySenpaiBox.lua")()
-			angrySenpaiBox.x, angrySenpaiBox.y = 125, 90
+			angrySenpaiBox.x, angrySenpaiBox.y = 650, 375
+
+			angrySenpaiBox.sizeX, angrySenpaiBox.sizeY = 6, 6
 
 			setDialogue(
 				{
@@ -221,7 +150,9 @@ return {
 			)
 		end
 
-		weeksPixel:load()
+		enemy.x, enemy.y = -340, -20
+
+		weeks:load()
 
 		if song == 3 then
 			inst = love.audio.newSource("music/week6/thorns-inst.ogg", "stream")
@@ -233,44 +164,44 @@ return {
 			inst = love.audio.newSource("music/week6/senpai-inst.ogg", "stream")
 			voices = love.audio.newSource("music/week6/senpai-voices.ogg", "stream")
 		end
-		enemy.x, enemy.y = -50, 0
+
 
 		if storyMode then
-			dialogueMusic:play()
+			if song ~= 2 then
+				dialogueMusic:play()
+			end
 		end
 		self:initUI()
 		if not storyMode then
-			weeksPixel:setupCountdown()
+			weeks:setupCountdown()
 		end
 	end,
 
 	initUI = function(self)
-		weeksPixel:initUI()
+		weeks:pixelInitUI()
 
 		if song == 3 then
-			weeksPixel:generateNotes(love.filesystem.load("charts/week6/thorns" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/week6/thorns" .. difficulty .. ".lua")())
 		elseif song == 2 then
-			weeksPixel:generateNotes(love.filesystem.load("charts/week6/roses" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/week6/roses" .. difficulty .. ".lua")())
 		else
-			weeksPixel:generateNotes(love.filesystem.load("charts/week6/senpai" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/week6/senpai" .. difficulty .. ".lua")())
 		end
 	end,
 
 	update = function(self, dt)
-		graphics.screenBase(256, 144)
+		weeks:update(dt)
 
-		weeksPixel:update(dt)
-
-		if song == 3 then
-			school:update(dt)
-		else
-			trees:update(dt)
+		if song ~= 3 then
 			petals:update(dt)
+			trees:update(dt)
 			freaks:update(dt)
+		else
+			school:update(dt)
 		end
 
 		if doingDialogue then
-			doDialogue(dt)
+			weeks:doDialogue(dt)
 			if song == 1 then
 				senpaiPortrait:update(dt)
 			elseif song == 2 then
@@ -282,13 +213,15 @@ return {
 			dialogueBox:update(dt)
 			if input:pressed("confirm") then
 				if not isDone then
-					advanceDialogue()
+					weeks:advanceDialogue()
 				end
 			end
 			if isDone then
-				dialogueMusic:stop()
+				if song ~= 2 then
+					dialogueMusic:stop()
+				end
 				doingDialogue = false
-				weeksPixel:setupCountdown()
+				weeks:setupCountdown()
 			end
 		end
 
@@ -311,94 +244,81 @@ return {
 			end
 		end
 
-		weeksPixel:updateUI(dt, canvas)
+		weeks:updateUI(dt)
 	end,
 
 	draw = function(self)
-		local canvasScale
-
 		love.graphics.setFont(font)
-		graphics.screenBase(256, 144)
-		love.graphics.setCanvas(canvas)
-			love.graphics.clear()
+		love.graphics.push()
+			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+			love.graphics.scale(cam.sizeX, cam.sizeY)
 
 			love.graphics.push()
-				love.graphics.translate(128, 72)
-				love.graphics.scale(cam.sizeX, cam.sizeY)
+				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-				love.graphics.push()
-					love.graphics.translate(math.floor(cam.x * 0.9), math.floor(cam.y * 0.9))
-
-					if song ~= 3 then
-						sky:draw()
-					end
-
-					school:draw()
-				love.graphics.pop()
-				love.graphics.push()
-					love.graphics.translate(math.floor(cam.x), math.floor(cam.y))
-
-					if song ~= 3 then
-						street:draw()
-						treesBack:draw()
-
-						trees:draw()
-						petals:draw()
-						freaks:draw()
-					end
-
-					girlfriend:draw()
-					enemy:draw()
-					boyfriend:draw()
-				love.graphics.pop()
-				weeksPixel:drawRating()
-			love.graphics.pop()
-
-			if not doingDialogue then
-				weeksPixel:drawUI()
-			end
-			if doingDialogue then -- Doing this cuz i'm stupid as shit
-				if song == 1 then
-					dialogueBox:draw()
-					if curDialogue ~= 3 then
-						senpaiPortrait:draw()
-					else
-						bfPortrait:draw()
-					end
-				elseif song == 2 then
-					if curDialogue ~= 3 then
-						angrySenpaiBox:draw()
-					else
-						dialogueBox:draw()
-						bfPortrait:draw()
-					end
-				elseif song == 3 then
-					scaryDialogueBox:draw()
-					spiritPortait:draw()
+				if song ~= 3 then
+					sky:udraw()
 				end
-				love.graphics.printf(output, 35, 95, 182, "left")
+
+				school:udraw()
+				if song ~= 3 then
+					street:udraw()
+					treesBack:udraw()
+
+					trees:udraw()
+					petals:udraw()
+					freaks:udraw()
+				end
+				girlfriend:udraw()
+			love.graphics.pop()
+			love.graphics.push()
+				love.graphics.translate(cam.x, cam.y)
+
+				enemy:udraw()
+				boyfriend:udraw()
+			love.graphics.pop()
+			love.graphics.push()
+				love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
+
+			love.graphics.pop()
+			weeks:drawRating(0.9)
+		love.graphics.pop()
+		if doingDialogue then -- Doing this cuz i'm stupid as shit
+			if song == 1 then
+				dialogueBox:draw()
+				if curDialogue ~= 3 then
+					senpaiPortrait:draw()
+				else
+					bfPortrait:draw()
+				end
+			elseif song == 2 then
+				if curDialogue ~= 3 then
+					angrySenpaiBox:draw()
+				else
+					dialogueBox:draw()
+					bfPortrait:draw()
+				end
+			elseif song == 3 then
+				scaryDialogueBox:draw()
+				spiritPortait:draw()
 			end
-		love.graphics.setCanvas()
-		graphics.screenBase(love.graphics.getWidth(), love.graphics.getHeight())
-
-		canvasScale = math.min(math.floor(graphics.getWidth() / 256), math.floor(graphics.getHeight() / 144))
-		if canvasScale < 1 then canvasScale = math.min(graphics.getWidth() / 256, graphics.getHeight() / 144) end
-
-		love.graphics.draw(canvas, graphics.getWidth() / 2, graphics.getHeight() / 2, nil, canvasScale, canvasScale, 128, 72)
+			weeks:drawDialogue()
+		end
+		if not doingDialogue then
+			weeks:drawUI()
+			weeks:drawHealthBar()
+		end
 	end,
 
 	leave = function(self)
-		canvas = nil
-		font = nil
-
-		sky = nil
-		school = nil
-		street = nil
-
-		weeksPixel:leave()
-
-		status.setNoResize(false)
+		stageBack = nil
+		stageFront = nil
+		curtains = nil
+		pixel = false
+		font = love.graphics.newFont("fonts/vcr.ttf", 24)
 
 		love.graphics.setDefaultFilter("linear")
+
+		weeks:leave()
 	end
 }

@@ -171,7 +171,7 @@ return {
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
-                love.graphics.color.printf("Funkin' Vasion: v1.5.1\nFNFR: v1.1.0-beta2", -708, 340, 833, "left", nil, 1, 1, 200, 200, 200, 0.8)
+                love.graphics.color.printf("Funkin' Vasion: v1.5.5\nFNFR: v1.1.0-beta2", -708, 340, 833, "left", nil, 1, 1, 200, 200, 200, 0.8)
 			love.graphics.pop()
 		love.graphics.pop()
 	end,

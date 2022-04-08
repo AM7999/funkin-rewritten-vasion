@@ -627,6 +627,11 @@ return {
 
 		love.graphics.setColor(fade * r, fade * g, fade * b, a)
 	end,
+	setColorF = function(r, g, b, a)
+		local fade = fade[1]
+
+		love.graphics.setColor(fade * (r/255), fade * (g/255), fade * (b/255), a)
+	end,
 	setBackgroundColor = function(r, g, b, a)
 		local fade = fade[1]
 

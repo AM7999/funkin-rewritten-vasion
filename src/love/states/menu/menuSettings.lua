@@ -61,9 +61,19 @@ settingsDescriptions2 = {
     "\n\n       \"fps\" ONLY shows your FPS" ..
     "\n\n       \"detailed\" shows things for debugging. (E.g. Music time,\n       Health, etc)"
 }
+settingsDescriptions3 = {
 
-local function switchMenu(menu)
-end
+    "Practice Mode:" ..
+    "\n       \"Practice Mode\" Too hard? Enable this to not lose!",
+
+    "No Miss:" ..
+    "\n       \"No Miss\" Too easy? Enable this to lose if you miss one note",
+
+    "No Hold Notes:" ..
+    "\n       \"No Hold Notes\" Do you hate hold notes? Well now you don't\n       have to go through the pain of hold notes!"
+}
+
+local function switchMenu(menu)end
 
 return {
 	enter = function(self, previous)
@@ -81,10 +91,14 @@ return {
                     downscroll = settings.downscroll,
                     ghostTapping = settings.ghostTapping,
                     showDebug = settings.showDebug,
-                    setImageType = imageTyppe,
+                    setImageType = "dds",
                     sideJudgements = settings.sideJudgements,
                     botPlay = settings.botPlay,
                     middleScroll = settings.middleScroll,
+                    randomNotePlacements = settings.randomNotePlacements,
+                    practiceMode = settings.practiceMode,
+                    noMiss = settings.noMiss,
+                    noHolds = settings.noHolds,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -103,10 +117,14 @@ return {
                     downscroll = settings.downscroll,
                     ghostTapping = settings.ghostTapping,
                     showDebug = settings.showDebug,
-                    setImageType = imageTyppe,
+                    setImageType = "dds",
                     sideJudgements = settings.sideJudgements,
                     botPlay = settings.botPlay,
                     middleScroll = settings.middleScroll,
+                    randomNotePlacements = settings.randomNotePlacements,
+                    practiceMode = settings.practiceMode,
+                    noMiss = settings.noMiss,
+                    noHolds = settings.noHolds,
                     settingsVer = settingsVer
                 }
                 serialized = lume.serialize(data)
@@ -150,13 +168,39 @@ return {
                 function confirmFunc()
                     if settingsMenuState == 0 then
                         if settingSelect == 1 then
+                            settignSelect = 0
                             settingsMenuState = 1 
                         elseif settingSelect == 2 then
+                            settignSelect = 0
                             settingsMenuState = 2
                         elseif settingSelect == 3 then
+                            settignSelect = 0
+                            settingsMenuState = 3
+                        elseif settingSelect == 4 then
+                            settignSelect = 0
                             saveSettings()
                         end
                     elseif settingsMenuState == 1 then
+                        if settingSelect == 1 then
+                            if settings.practiceMode then
+                                settings.practiceMode = false
+                            else
+                                settings.practiceMode = true
+                            end
+                        elseif settingSelect == 2 then
+                            if settings.noMiss then
+                                settings.noMiss = false
+                            else
+                                settings.noMiss = true
+                            end
+                        elseif settingSelect == 3 then
+                            if not settings.noHolds then
+                                settings.noHolds = true
+                            else
+                                settings.noHolds = false
+                            end
+                        end
+                    elseif settingsMenuState == 2 then
                         if settingSelect == 1 then
                             if settings.downscroll then
                                 settings.downscroll = false
@@ -188,7 +232,7 @@ return {
                                 settings.botPlay = false
                             end
                         end
-                    elseif settingsMenuState == 2 then
+                    elseif settingsMenuState == 3 then
                         if settingSelect == 1 then
                             if settings.hardwareCompression then
                                 settings.hardwareCompression = false
@@ -223,15 +267,21 @@ return {
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 3
+                        settingSelect = 4
                     end
                 elseif settingsMenuState == 1 then
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
-                        settingSelect = 5
+                        settingSelect = 3
                     end
                 elseif settingsMenuState == 2 then
+                    if settingSelect ~= 1 then
+                        settingSelect = settingSelect - 1
+                    else
+                        settingSelect = 5
+                    end
+                elseif settingsMenuState == 3 then
                     if settingSelect ~= 1 then
                         settingSelect = settingSelect - 1
                     else
@@ -246,12 +296,18 @@ return {
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 1 then
-                    if settingSelect ~= 5 then
+                    if settingSelect ~= 3 then
                         settingSelect = settingSelect + 1
                     else
                         settingSelect = 1
                     end
                 elseif settingsMenuState == 2 then
+                    if settingSelect ~= 5 then
+                        settingSelect = settingSelect + 1
+                    else
+                        settingSelect = 1
+                    end
+                elseif settingsMenuState == 3 then
                     if settingSelect ~= 2 then
                         settingSelect = settingSelect + 1
                     else
@@ -276,20 +332,25 @@ return {
 
                 graphics.setColor(1,1,0)
                 if settingsMenuState == 0 then
-                    love.graphics.print("Gameplay", -628, -100)
-                    love.graphics.print("\n\nMisc.", -628, -100)
+                    love.graphics.print("Gamemodes", -628, -100)
+                    love.graphics.print("\n\nGameplay", -628, -100)
+                    love.graphics.print("\n\n\n\nMisc.", -628, -100)
                     if settings.hardwareCompression ~= data.saveSettingsMoment.hardwareCompression then
-                        love.graphics.print("\n\n\n\nSave settings & Restart", -628, -100)
+                        love.graphics.print("\n\n\n\n\n\nSave settings & Restart", -628, -100)
                     else
-                        love.graphics.print("\n\n\n\nSave settings", -628, -100)
+                        love.graphics.print("\n\n\n\n\n\nSave settings", -628, -100)
                     end
                 elseif settingsMenuState == 1 then
+                    love.graphics.print("Practice Mode = " .. tostring(settings.practiceMode), -628, -100)
+                    love.graphics.print("\n\nNo Miss = " .. tostring(settings.noMiss), -628, -100)
+                    love.graphics.print("\n\n\n\nNo Hold Notes = " .. tostring(settings.noHolds), -628, -100)
+                elseif settingsMenuState == 2 then
                     love.graphics.print("Downscroll = " .. tostring(settings.downscroll), -628, -100)
                     love.graphics.print("\n\nMiddlescroll = " .. tostring(settings.middleScroll), -628, -100)
                     love.graphics.print("\n\n\n\nGhost Tapping = " .. tostring(settings.ghostTapping), -628, -100)
                     love.graphics.print("\n\n\n\n\n\nSide Judgements = " .. tostring(settings.sideJudgements), -628, -100)
                     love.graphics.print("\n\n\n\n\n\n\n\nBot Play = " .. tostring(settings.botPlay), -628, -100)
-                elseif settingsMenuState == 2 then
+                elseif settingsMenuState == 3 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -100) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -100)
                 end
@@ -301,8 +362,10 @@ return {
                     love.graphics.rectangle("fill", -400, 175, 800, 300)
                     love.graphics.setColor(1,1,1)
                     if settingsMenuState == 1 then
-                        love.graphics.printf(settingsDescriptions1[settingSelect], -390, 185, 1000, "left", nil, 0.8, 0.8)
+                        love.graphics.printf(settingsDescriptions3[settingSelect], -390, 185, 1000, "left", nil, 0.8, 0.8)
                     elseif settingsMenuState == 2 then
+                        love.graphics.printf(settingsDescriptions1[settingSelect], -390, 185, 1000, "left", nil, 0.8, 0.8)
+                    elseif settingsMenuState == 3 then
                         love.graphics.printf(settingsDescriptions2[settingSelect], -390, 185, 1000, "left", nil, 0.8, 0.8)
                     end
                 end
