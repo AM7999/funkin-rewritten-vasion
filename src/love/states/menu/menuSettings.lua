@@ -168,16 +168,16 @@ return {
                 function confirmFunc()
                     if settingsMenuState == 0 then
                         if settingSelect == 1 then
-                            settignSelect = 0
+                            settingSelect = 1
                             settingsMenuState = 1 
                         elseif settingSelect == 2 then
-                            settignSelect = 0
+                            settingSelect = 1
                             settingsMenuState = 2
                         elseif settingSelect == 3 then
-                            settignSelect = 0
+                            settingSelect = 1
                             settingsMenuState = 3
                         elseif settingSelect == 4 then
-                            settignSelect = 0
+                            settingSelect = 1
                             saveSettings()
                         end
                     elseif settingsMenuState == 1 then
