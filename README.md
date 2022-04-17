@@ -40,7 +40,7 @@ If using a controller on a PC, a controller with an Xbox button layout is recomm
 
 ## Game
 ### Keyboard
-* WASD/Arrow Keys - Arrows
+* WASD/Arrow Keys - Arrows - Special keybinds defined by you! (in the settings.ini)
 * Enter - Confirm (Game Over)
 * Escape - Exit
 
