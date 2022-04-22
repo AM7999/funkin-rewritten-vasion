@@ -23,7 +23,7 @@
 
 # Note: Converted charts will not work as-is, you will have to have a bit of knowledge to be able to make code that works with it.
 # Ask me on Discord for an example weeks.lua
-# - GuglioIsStupid#4413
+# - GuglioIsStupid#0110
 
 import json
 import os
