@@ -33,7 +33,17 @@ tools/funkin-json-special/*
 !tools/funkin-xml/funkin-xml.py
 !tools/funkin-xna/funkin-xna.py
 !tools/funkin-json-ignore-psych-events/funkin-json.py
-!tools/funkin-json-special/funkin-json.py 
+!tools/funkin-json-special/funkin-json.py
+
+# Unreleased week7 stuff
+src/love/weeks/week7.lua
+src/love/states/weeks/weeks7.lua
+src/love/sprites/week7
+src/love/images/png/week7
+src/love/images/dds/week7
+src/love/sounds/week7
+src/love/music/week7
 
 # My things for FV updates (commented so i don't leak an update)
 FVUpdateMoment.txt
+

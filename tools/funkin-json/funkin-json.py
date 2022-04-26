@@ -32,15 +32,9 @@ for i in range(1, len(sys.argv)):
     songdata = json.loads(jsondata.strip('\x00'))
     notes = songdata['song']['notes']
     arguments = ['mustHitSection', 'bpm', 'altAnim']
-    if str(songdata['song']['speed']) == "True":
-        needsVoices = "true"
-    else:
-        needsVoices = "false"
 
     lua = ('-- Automatically generated from ' + jsonfile + '\n'
            'return {\n'
-           '\tsongName = "' + str(songdata['song']['song']) + '",\n'
-           '\tneedsVoices = ' + needsVoices + ',\n'
            '\tspeed = ' + str(songdata['song']['speed']) + ',\n')
     for j in notes:
         lua += '\t{\n'

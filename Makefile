@@ -33,7 +33,7 @@ lovefile:
 	@rm -f build/release/funkin-vasion-rewritten-lovefile.zip
 	@cd build/lovefile; zip -9 -r ../release/funkin-vasion-rewritten-lovefile.zip .
 
-win64: lovefile
+win64:
 	@rm -rf build/win64
 	@mkdir -p build/win64
 
@@ -85,7 +85,7 @@ macos: lovefile
 	@rm -f build/release/funkin-vasion-rewritten-macos.zip
 	@cd build/macos; zip -9 -r ../release/funkin-vasion-rewritten-macos.zip .
 
-switch: lovefile
+switch:
 	@rm -rf build/switch
 	@mkdir -p build/switch/switch/funkin-vasion-rewritten
 

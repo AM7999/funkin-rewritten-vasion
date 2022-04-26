@@ -168,16 +168,16 @@ return {
                 function confirmFunc()
                     if settingsMenuState == 0 then
                         if settingSelect == 1 then
-                            settignSelect = 0
+                            settingSelect = 1
                             settingsMenuState = 1 
                         elseif settingSelect == 2 then
-                            settignSelect = 0
+                            settingSelect = 1
                             settingsMenuState = 2
                         elseif settingSelect == 3 then
-                            settignSelect = 0
+                            settingSelect = 1
                             settingsMenuState = 3
                         elseif settingSelect == 4 then
-                            settignSelect = 0
+                            settingSelect = 1
                             saveSettings()
                         end
                     elseif settingsMenuState == 1 then
@@ -343,7 +343,7 @@ return {
                 elseif settingsMenuState == 1 then
                     love.graphics.print("Practice Mode = " .. tostring(settings.practiceMode), -628, -100)
                     love.graphics.print("\n\nNo Miss = " .. tostring(settings.noMiss), -628, -100)
-                    love.graphics.print("\n\n\n\nNo Hold Notes = " .. tostring(settings.noHolds), -628, -100)
+                    love.graphics.print("\n\n\n\nNo Hold Notes = " .. tostring(settings.noHolds) .. " (Temporarily Removed.)", -628, -100)
                 elseif settingsMenuState == 2 then
                     love.graphics.print("Downscroll = " .. tostring(settings.downscroll), -628, -100)
                     love.graphics.print("\n\nMiddlescroll = " .. tostring(settings.middleScroll), -628, -100)

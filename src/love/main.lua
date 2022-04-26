@@ -61,6 +61,8 @@ function love.load()
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
 	weeks_test = require "states.weeks.week_test"
+	--week7 = require "states.weeks.weeks7" -- since week7 has some wack changes, use a different weeks.lua file
+	-- Too lazy to remove all assets from week7, so i just keep it in.
 
 	-- Load substates
 	gameOver = require "substates.game-over"
