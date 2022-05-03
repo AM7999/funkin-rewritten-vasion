@@ -58,8 +58,8 @@ return {
 			inst = love.audio.newSource("music/week1/fresh-inst.ogg", "stream")
 			voices = love.audio.newSource("music/week1/fresh-voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("music/week1/bopeebo-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week1/bopeebo-voices.ogg", "stream")
+			inst = love.audio.newSource("music/casanova/casanova_Inst.ogg", "stream")
+			voices = love.audio.newSource("music/casanova/casanova_Voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -75,7 +75,7 @@ return {
 		elseif song == 2 then
 			weeks:generateNotes(love.filesystem.load("charts/week1/fresh" .. difficulty .. ".lua")())
 		else
-			weeks:generateNotes(love.filesystem.load("charts/week1/bopeebo" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/casanova/casanova" .. difficulty .. ".lua")())
 		end
 	end,
 
