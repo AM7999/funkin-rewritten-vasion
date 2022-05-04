@@ -86,10 +86,10 @@ function love.load()
 		require "weeks.tutorial",
 		require "weeks.week1",
 		require "weeks.week2",
-		require "weeks.week3",
-		require "weeks.week4",
-		require "weeks.week5",
-		require "weeks.week6"
+		--require "weeks.week3",
+		--require "weeks.week4",
+		--require "weeks.week5",
+		--require "weeks.week6"
 	}
 
 	testSong = require "weeks.test" -- Test song easter egg
