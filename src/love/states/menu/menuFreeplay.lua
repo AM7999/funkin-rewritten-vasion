@@ -54,38 +54,6 @@ local weekMeta = { -- Add/remove weeks here
 		{
 			"Casanova"
 		}
-	},
-	{
-		"Week 3",
-		{
-			"Pico",
-			"Philly Nice",
-			"Blammed"
-		}
-	},
-	{
-		"Week 4",
-		{
-			"Satin Panties",
-			"High",
-			"M.I.L.F"
-		}
-	},
-	{
-		"Week 5",
-		{
-			"Cocoa",
-			"Eggnog",
-			"Winter Horrorland"
-		}
-	},
-	{
-		"Week 6",
-		{
-			"Senpai",
-			"Roses",
-			"Thorns"
-		}
 	}
 }
 local difficultyStrs = {

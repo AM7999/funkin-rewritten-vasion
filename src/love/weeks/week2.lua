@@ -30,10 +30,10 @@ return {
 
 		healthBarColorEnemy = {175,102,206}
 
-		stageBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("selever/churchSelever/stage-back")))
-		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("selever/churchSelever/stage-front")))
-		curtains = graphics.newImage(love.graphics.newImage(graphics.imagePath("selever/churchSelever/curtains")))
-        stageBack2 = graphics.newImage(love.graphics.newImage(graphics.imagePath("selever/churchSelever/stage-back2")))
+		stageBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/selever/churchSelever/stage-back")))
+		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/selever/churchSelever/stage-front")))
+		curtains = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/selever/churchSelever/curtains")))
+        stageBack2 = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/selever/churchSelever/stage-back2")))
 
 		stageFront.y = 400
 		curtains.y = -100
@@ -44,7 +44,7 @@ return {
 		enemy.x, enemy.y = -380, -110
 		boyfriend.x, boyfriend.y = 260, 100
 
-		enemyIcon:animate("daddy dearest", false)
+		enemyIcon:animate("skid and pump", false)
 
 		self:load()
 	end,
@@ -66,7 +66,7 @@ return {
 	initUI = function(self)
 		weeks:initUI()
 
-			weeks:generateNotes(love.filesystem.load("charts/casanova/casanova" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/mfm/casanova" .. difficulty .. ".lua")())
 	end,
 
 	update = function(self, dt)
@@ -77,12 +77,12 @@ return {
 		end
 
 		if health >= 80 then
-			if enemyIcon:getAnimName() == "daddy dearest" then
-				enemyIcon:animate("daddy dearest losing", false)
+			if enemyIcon:getAnimName() == "skid and pump" then
+				enemyIcon:animate("skid and pump losing", false)
 			end
 		else
-			if enemyIcon:getAnimName() == "daddy dearest losing" then
-				enemyIcon:animate("daddy dearest", false)
+			if enemyIcon:getAnimName() == "skid and pump losing" then
+				enemyIcon:animate("skid and pump", false)
 			end
 		end
 

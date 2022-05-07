@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("selever/fuckboi_sheet")),
+	love.graphics.newImage(graphics.imagePath("mfm/selever/fuckboi_sheet")),
 	
 	-- Automatically generated from fuckboi_sheet.xml
 	{

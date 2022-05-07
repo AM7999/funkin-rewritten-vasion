@@ -69,13 +69,13 @@ return {
 
 	initUI = function(self)
 		weeks:initUI()
-
+ 
 		if song == 3 then
-			weeks:generateNotes(love.filesystem.load("charts/week1/dadbattle" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/mfm/zavodila" .. difficulty .. ".lua")())
 		elseif song == 2 then
-			weeks:generateNotes(love.filesystem.load("charts/week1/fresh" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/mfm/worship" .. difficulty .. ".lua")())
 		else
-			weeks:generateNotes(love.filesystem.load("charts/casanova/casanova" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/mfm/casanova" .. difficulty .. ".lua")())
 		end
 	end,
 
