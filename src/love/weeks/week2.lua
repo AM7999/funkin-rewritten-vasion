@@ -116,8 +116,9 @@ return {
 			love.graphics.push()
 				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-				stageBack:draw()
+				stageBack2:draw()
 				stageFront:draw()
+				stageBack:draw()
 
 				girlfriend:draw()
 			love.graphics.pop()
