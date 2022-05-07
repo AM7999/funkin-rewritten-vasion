@@ -43,17 +43,16 @@ local weekMeta = { -- Add/remove weeks here
 	{
 		"Week 1",
 		{
-			"Bopeebo",
-			"Fresh",
-			"Dadbattle"
+			"Parish",
+			"Worship",
+			"Zavodila",
+			"Gospel"
 		}
 	},
 	{
 		"Week 2",
 		{
-			"Spookeez",
-			"South",
-			"Monster"
+			"Casanova"
 		}
 	},
 	{
