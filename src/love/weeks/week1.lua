@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local song, difficulty
 
-local stageBack, stageFront, curtains
+local church0_wall, church0_floor
 
 return {
 	enter = function(self, from, songNum, songAppend)
@@ -30,12 +30,15 @@ return {
 
 		healthBarColorEnemy = {175,102,206}
 
-		stageBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-back")))
-		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/stage-front")))
+		
+		church0_floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church0/stageback")))
+		church0_wall = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church0/stagefront")))
+	    
+		
 		curtains = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/curtains")))
 
-		stageFront.y = 400
-		curtains.y = -100
+		church0_wall.y = 400
+		--curtains.y = -100
 
 		enemy = love.filesystem.load("sprites/week1/daddy-dearest.lua")()
 
@@ -50,18 +53,24 @@ return {
 
 	load = function(self)
 		weeks:load()
-
-		if song == 3 then
-			inst = love.audio.newSource("music/week1/dadbattle-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week1/dadbattle-voices.ogg", "stream")
-		elseif song == 2 then
-			inst = love.audio.newSource("music/week1/fresh-inst.ogg", "stream")
-			voices = love.audio.newSource("music/week1/fresh-voices.ogg", "stream")
+        if song == 4 then
+			inst = love.audio.newSource("music/mfm/gospel/gospel_inst.ogg", "stream")
+			voices = love.audio.newSource("music/mfm/gospel/gospel_voices.ogg", "stream")
+		elseif song == 3 then
+			inst = love.audio.newSource("music/mfm/zavodila/zavodila_inst.ogg", "stream")
+			voices = love.audio.newSource("music/mfm/zavodila/zavodila_ioices.ogg", "stream")
+	     elseif song == 2 then
+			inst = love.audio.newSource("music/mfm/worship/worship_inst.ogg", "stream")
+			voices = love.audio.newSource("music/mfm/worship/worship_voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("music/casanova/casanova_Inst.ogg", "stream")
-			voices = love.audio.newSource("music/casanova/casanova_Voices.ogg", "stream")
+			inst = love.audio.newSource("music/mfm/parish/parish_inst.ogg", "stream")
+			voices = love.audio.newSource("music/mfm/parish/parish_voices.ogg", "stream")
+			church0_floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church0/stageback")))
+			church0_wall = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church0/stagefront")))
+			church0_wall:draw()
+			church0_floor:draw()
 		end
-
+         
 		self:initUI()
 
 		weeks:setupCountdown()
@@ -69,13 +78,14 @@ return {
 
 	initUI = function(self)
 		weeks:initUI()
- 
-		if song == 3 then
+        if song == 4 then
+			weeks:generateNotes(love.filesystem.load("charts/mfm/gospel" .. difficulty .. ".lua")())
+		elseif song == 3 then
 			weeks:generateNotes(love.filesystem.load("charts/mfm/zavodila" .. difficulty .. ".lua")())
 		elseif song == 2 then
 			weeks:generateNotes(love.filesystem.load("charts/mfm/worship" .. difficulty .. ".lua")())
 		else
-			weeks:generateNotes(love.filesystem.load("charts/mfm/casanova" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("charts/mfm/parish" .. difficulty .. ".lua")())
 		end
 	end,
 
@@ -126,8 +136,8 @@ return {
 			love.graphics.push()
 				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-				stageBack:draw()
-				stageFront:draw()
+				--stageBack:draw()
+				--stageFront:draw()
 
 				girlfriend:draw()
 			love.graphics.pop()
@@ -140,7 +150,7 @@ return {
 			love.graphics.push()
 				love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
 
-				curtains:draw()
+				--curtains:draw()
 			love.graphics.pop()
 			weeks:drawRating(0.9)
 		love.graphics.pop()

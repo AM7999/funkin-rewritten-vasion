@@ -28,7 +28,7 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		healthBarColorEnemy = {175,102,206}
+		healthBarColorEnemy = {151,38,81}
 
 		stageBack = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/selever/churchSelever/stage-back")))
 		stageFront = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/selever/churchSelever/stage-front")))
@@ -52,8 +52,8 @@ return {
 	load = function(self)
 		weeks:load()
 
-			inst = love.audio.newSource("music/casanova/casanova_Inst.ogg", "stream")
-			voices = love.audio.newSource("music/casanova/casanova_Voices.ogg", "stream")
+			inst = love.audio.newSource("music/mfm/casanova/casanova_Inst.ogg", "stream")
+			voices = love.audio.newSource("music/mfm/casanova/casanova_Voices.ogg", "stream")
 
 
 		
