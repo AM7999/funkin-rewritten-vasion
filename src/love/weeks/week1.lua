@@ -59,16 +59,12 @@ return {
 		elseif song == 3 then
 			inst = love.audio.newSource("music/mfm/zavodila/zavodila_inst.ogg", "stream")
 			voices = love.audio.newSource("music/mfm/zavodila/zavodila_ioices.ogg", "stream")
-	     elseif song == 2 then
+	    elseif song == 2 then
 			inst = love.audio.newSource("music/mfm/worship/worship_inst.ogg", "stream")
 			voices = love.audio.newSource("music/mfm/worship/worship_voices.ogg", "stream")
 		else
 			inst = love.audio.newSource("music/mfm/parish/parish_inst.ogg", "stream")
 			voices = love.audio.newSource("music/mfm/parish/parish_voices.ogg", "stream")
-			church0_floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church0/stageback")))
-			church0_wall = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church0/stagefront")))
-			church0_wall:draw()
-			church0_floor:draw()
 		end
          
 		self:initUI()
@@ -136,8 +132,11 @@ return {
 			love.graphics.push()
 				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-				--stageBack:draw()
-				--stageFront:draw()
+
+				if songNum == 1 then
+				stageBack:draw()
+				stageFront:draw()
+	            end 
 
 				girlfriend:draw()
 			love.graphics.pop()
