@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local song, difficulty
 
-local church0_wall, church0_floor
+local church0_wall, church0_floor, church1_floor, church1_wall
 
 return {
 	enter = function(self, from, songNum, songAppend)
@@ -34,7 +34,9 @@ return {
 		church0_floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church0/stageback")))
 		church0_wall = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church0/stagefront")))
 	    
-		
+		church1_floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church1/bg")))
+		church1_wall = graphics.newImage(love.graphics.newImage(graphics.imagePath("mfm/sacredmass/church1/base")))
+
 		curtains = graphics.newImage(love.graphics.newImage(graphics.imagePath("week1/curtains")))
 
 		church0_wall.y = 400
@@ -88,10 +90,6 @@ return {
 	update = function(self, dt)
 		weeks:update(dt)
 
-		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
-			weeks:safeAnimate(boyfriend, "hey", false, 3)
-		end
-
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
 				enemyIcon:animate("daddy dearest losing", false)
@@ -133,10 +131,17 @@ return {
 				love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
 
-				if songNum == 1 then
-				stageBack:draw()
-				stageFront:draw()
-	            end 
+				if song == 1 then
+					church0_floor:draw()
+					church0_wall:draw()
+	            end
+
+				if song == 2 then
+					church1_floor:draw()
+					church1_wall:draw()
+				end
+
+
 
 				girlfriend:draw()
 			love.graphics.pop()
