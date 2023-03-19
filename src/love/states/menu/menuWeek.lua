@@ -64,13 +64,8 @@ return {
 		}
 		freeplayColours = {
 			{146,0,68}, -- Tutorial
-			{129,100,223}, -- Week 1
+			{255,92,195}, -- Week 1
 			{57,60,198}, -- Week 2
-			{82,231,90}, -- Week 3
-			{255,166,239}, -- Week 4
-			{247,243,247}, -- Week 5
-			{173,235,247}, -- Week 6
-			{231,139,8} -- Week 7
 		}
 		Timer.tween(
 			0.1,
@@ -215,7 +210,7 @@ return {
 					weekNum = weekNum - 1
 				else
 					currentWeek = 7
-					weekNum = 8
+					weekNum = 2
 				end
 				if freeplayColours[weekNum] then colourTween() else colourTweenAlt() end
 				menuFunc()
@@ -228,7 +223,7 @@ return {
 					arrowRight:animate("arrow", true)
 				end)
 
-				if currentWeek ~= 7 then
+				if currentWeek ~= 2 then
 					currentWeek = currentWeek + 1
 					weekNum = weekNum + 1
 				else

@@ -338,14 +338,8 @@ function love.load()
 
 	-- Load stages
 	stages = {
-		["stage"] = require "stages.stage",
-		["hauntedHouse"] = require "stages.hauntedHouse",
-		["city"] = require "stages.city",
-		["sunset"] = require "stages.sunset",
-		["mall"] = require "stages.mall",
-		["school"] = require "stages.school",
-		["evilSchool"] = require "stages.evilSchool",
-		["tank"] = require "stages.tank"
+		["reggieHouse"] = require "stages.reggieHouse",
+		["hauntedHouse"] = require "stages.hauntedHouse"
 	}
 
 	-- Load Menus
@@ -370,34 +364,19 @@ function love.load()
 	weekData = {
 		require "weeks.tutorial",
 		require "weeks.week1",
-		require "weeks.week2",
-		require "weeks.week3",
-		require "weeks.week4",
-		require "weeks.week5",
-		require "weeks.week6",
-		require "weeks.week7"
+		require "weeks.week2"
 	}
 
 	weekDesc = { -- Add your week description here
 		"LEARN TO FUNK",
-		"DADDY DEAREST",
-		"SPOOKY MONTH",
-		"PICO",
-		"MOMMY MUST MURDER",
-		"RED SNOW",
-		"HATING SIMULATOR FT. MOAWLING",
-		"TANKMAN"
+		"I LIKE GUYS :3",
+		"DREAMLAND"
 	}
 
 	weekDesc = { -- Add your week description here
 		"LEARN TO FUNK",
-		"DADDY DEAREST",
-		"SPOOKY MONTH",
-		"PICO",
-		"MOMMY MUST MURDER",
-		"RED SNOW",
-		"HATING SIMULATOR FT. MOAWLING",
-		"TANKMAN"
+		"I LIKE GUYS :3",
+		"DREAMLAND"
 	}
 	weekMeta = { -- Add/remove weeks here
 		{
@@ -409,58 +388,16 @@ function love.load()
 		{
 			"Week 1",
 			{
-				"Bopeebo",
-				"Fresh",
-				"Dadbattle",
-				"Balls"
+				"Guys",
+				"Warming Up",
+				"Best Vibes"
 			}
 		},
 		{
 			"Week 2",
 			{
-				"Spookeez",
-				"South",
-				"Monster"
-			}
-		},
-		{
-			"Week 3",
-			{
-				"Pico",
-				"Philly Nice",
-				"Blammed"
-			}
-		},
-		{
-			"Week 4",
-			{
-				"Satin Panties",
-				"High",
-				"M.I.L.F"
-			}
-		},
-		{
-			"Week 5",
-			{
-				"Cocoa",
-				"Eggnog",
-				"Winter Horrorland"
-			}
-		},
-		{
-			"Week 6",
-			{
-				"Senpai",
-				"Roses",
-				"Thorns"
-			},
-		},
-		{
-			"Week 7",
-			{
-				"Ugh",
-				"Guns",
-				"Stress"
+				"First Date",
+				"Burning Sensation"
 			}
 		}
 	}

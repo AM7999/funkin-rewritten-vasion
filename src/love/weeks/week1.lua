@@ -24,7 +24,7 @@ local stageBack, stageFront, curtains
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
-		stages["stage"]:enter()
+		stages["reggieHouse"]:enter()
 
 		song = songNum
 		difficulty = songAppend
@@ -36,7 +36,7 @@ return {
 
 	load = function(self)
 		weeks:load()
-		stages["stage"]:load()
+		stages["reggieHouse"]:load()
 
 		if song == 3 then
 			inst = love.audio.newSource("songs/week1/dadbattle/Inst.ogg", "stream")
@@ -45,8 +45,8 @@ return {
 			inst = love.audio.newSource("songs/week1/fresh/Inst.ogg", "stream")
 			voices = love.audio.newSource("songs/week1/fresh/Voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("songs/week1/bopeebo/Inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week1/bopeebo/Voices.ogg", "stream")
+			inst = love.audio.newSource("songs/week1/guys/Inst.ogg", "stream")
+			voices = love.audio.newSource("songs/week1/guys/Voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -58,22 +58,18 @@ return {
 		weeks:initUI()
 
 		if song == 3 then
-			weeks:generateNotes("data/week1/dadbattle/dadbattle" .. difficulty .. ".json")
+			weeks:generateNotes("data/week1/guys/guys" .. difficulty .. ".json")
 		elseif song == 2 then
 			weeks:generateNotes("data/week1/fresh/fresh" .. difficulty .. ".json")
 		else
-			weeks:generateNotes("data/week1/bopeebo/bopeebo" .. difficulty .. ".json")
+			weeks:generateNotes("data/week1/guys/guys" .. difficulty .. ".json")
 		end
 	end,
 
 	update = function(self, dt)
 		weeks:update(dt)
-		stages["stage"]:update(dt)
-
-		if song == 1 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
-			weeks:safeAnimate(boyfriend, "hey", false, 3)
-		end
-
+		stages["reggieHouse"]:update(dt)
+		
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
 				enemyIcon:animate("daddy dearest losing", false)
@@ -111,14 +107,15 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(camera.zoom, camera.zoom)
 
-			stages["stage"]:draw()
+			stages["reggieHouse"]:draw()
 		love.graphics.pop()
-
+		
 		weeks:drawUI()
+		love.graphics.pop()
 	end,
 
 	leave = function(self)
-		stages["stage"]:leave()
+		stages["reggieHouse"]:leave()
 
 		enemy = nil
 		boyfriend = nil

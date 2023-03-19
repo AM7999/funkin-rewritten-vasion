@@ -23,8 +23,9 @@ return {
 			audio.playSound(sounds["thunder"][love.math.random(2)])
 
 			stageImages["Haunted House"]:animate("lightning", false)
-			weeks:safeAnimate(girlfriend, "fear", true, 1)
-			weeks:safeAnimate(boyfriend, "shaking", true, 3)
+			girlfriend:animate("fear", false)
+			boyfriend:animate("fear", false)
+
 		end
     end,
 

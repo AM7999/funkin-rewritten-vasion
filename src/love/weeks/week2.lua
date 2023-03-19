@@ -70,14 +70,13 @@ return {
 
 	initUI = function(self)
 		weeks:initUI()
-
-		if song == 3 then
-			weeks:generateNotes("data/week2/monster/monster" .. difficulty .. ".json")
-		elseif song == 2 then
+		
+		if song == 2 then
 			weeks:generateNotes("data/week2/south/south" .. difficulty .. ".json")
-		else
+		elseif
 			weeks:generateNotes("data/week2/spookeez/spookeez" .. difficulty .. ".json")
-		end
+		then end
+
 	end,
 
 	update = function(self, dt)
