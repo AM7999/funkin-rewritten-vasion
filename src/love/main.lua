@@ -339,7 +339,7 @@ function love.load()
 	-- Load stages
 	stages = {
 		["reggieHouse"] = require "stages.reggieHouse",
-		["hauntedHouse"] = require "stages.hauntedHouse"
+		["dreamCity"] = require "stages.dreamCity"
 	}
 
 	-- Load Menus

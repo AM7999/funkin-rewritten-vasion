@@ -1,10 +1,10 @@
 return {
     enter = function()
         stageImages = {
-            ["Reggie House"] = graphics.newImage(graphics.imagePath("week1/ReggieBG")) -- stage-back
+            ["Dream City"] = graphics.newImage(graphics.imagePath("week1/ReggieBG")) -- stage-back
         }
 
-        enemy = love.filesystem.load("sprites/week1/Reggie.lua")()
+        enemy = love.filesystem.load("sprites/week1/Reggie2.lua")()
 
         girlfriend.x, girlfriend.y = -5, 14
         enemy.x, enemy.y = -530, 64
@@ -23,7 +23,7 @@ return {
 			love.graphics.translate(camera.x * 0.9, camera.y * 0.9)
             love.graphics.translate(camera.ex * 0.9, camera.ey * 0.9)
 
-			stageImages["Reggie House"]:draw()
+			stageImages["Dream City"]:draw()
 
 			girlfriend:draw()
 		love.graphics.pop()
